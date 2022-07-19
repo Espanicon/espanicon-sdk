@@ -17,7 +17,12 @@ async function createTest(method, params = false, ...rest) {
   }
   console.log(warningMsg("Results:"));
   if (typeof result === "object") {
-    console.log(JSON.stringify(result).slice(0, 200) + "...}");
+    const stringResult = JSON.stringify(result);
+    if (stringResult.length > 200) {
+      console.log(stringResult.slice(0, 200) + "...}");
+    } else {
+      console.log(stringResult);
+    }
   } else {
     console.log(result);
   }

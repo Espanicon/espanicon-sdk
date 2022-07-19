@@ -202,15 +202,15 @@ async function getProposals() {
 // Governance methods
 async function getScoreApi(address = SCORES.mainnet.governance) {
   //
-  const postData = JSON.stringify({
-    ...makeJSONRPCRequestObject("icx_getScoreApi"),
+  const JSONRPCObject = JSON.stringify({
+    ...makeJSONRPCRequestObj("icx_getScoreApi"),
     params: {
       address: address
     }
   });
 
-  const response = await customRequest(SCORES.apiRoutes.v3, postData);
-  return response.result;
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
 }
 
 function getIcxBalance(address, decimals = 2) {
@@ -297,10 +297,12 @@ async function setBonderList(prepAddress, arrayOfBonderAddresses) {
 }
 
 async function getLastBlock() {
-  const postData = JSON.stringify(makeJSONRPCRequestObject("icx_getLastBlock"));
+  const JSONRPCObject = JSON.stringify(
+    makeJSONRPCRequestObj("icx_getLastBlock")
+  );
 
-  const response = await customRequest(SCORES.apiRoutes.v3, postData);
-  return response.result;
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
 }
 
 const lib = {
