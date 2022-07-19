@@ -1,9 +1,10 @@
 // httpsRequest.js
-// This module is a https request wrapped in a promise design to be used
+// This module is an https request wrapped in a promise design to be used
 // to interact with the ICON Blockchain
 //
 // Imports
 const https = require("https");
+const http = require("http");
 
 /**
  * async https request wrapped in a promise
@@ -14,12 +15,21 @@ const https = require("https");
  * @param {number} param.timeout
  * @param {string} param.path
  */
-async function httpsRequest(params, data = false) {
+async function httpsRequest(params, data = false, runSecured = true) {
+  let method = http;
+  if (runSecured) {
+    method = https;
+  }
+
   const promisifiedQuery = new Promise((resolve, reject) => {
-    const query = https.request(params, res => {
+    const query = method.request(params, res => {
       // Print status code on console
       //console.log("Status Code: " + res.statusCode);
       // console.log("headers: ", res.headers);
+      // console.log("Params:");
+      // console.log(params);
+      // console.log("data:");
+      // console.log(data);
 
       // Process chunked data
       let rawData = "";
@@ -33,9 +43,14 @@ async function httpsRequest(params, data = false) {
 
       // when request completed, pass the data to the 'resolve' callback
       res.on("end", () => {
-        let data = JSON.parse(rawData);
-        // let data = rawData;
-        resolve(data);
+        let data;
+        try {
+          data = JSON.parse(rawData);
+          resolve(data);
+        } catch (err) {
+          data = { error: err.message, message: rawData };
+          resolve(data);
+        }
       });
 
       // if error, print on console

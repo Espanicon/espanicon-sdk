@@ -1,0 +1,324 @@
+// lib-no-sdk.js
+//
+// Imports
+const httpRequest = require("./api/httpRequest");
+const httpsRequest = require("./api/httpsRequest");
+const SCORES = require("./scores");
+
+// global var declarations
+const statusType = [
+  "_active",
+  "_completed",
+  "_disqualified",
+  "_paused",
+  "_pending"
+];
+
+// General Functions
+async function customRequest(
+  path,
+  data = false,
+  hostname = SCORES.apiHostnames.espanicon,
+  https = true
+) {
+  let request;
+  try {
+    let params = {
+      hostname: hostname,
+      path: path,
+      method: data ? "POST" : "GET",
+      headers: {
+        "Content-Type": "text/plain",
+        charset: "UTF-8"
+      }
+    };
+
+    if (https) {
+      request = await httpsRequest(params, data);
+    } else {
+      request = await httpRequest(params, data);
+    }
+
+    if (request.error == null) {
+      // if there is no error
+      return request;
+    } else {
+      throw new Error("Request returned error");
+    }
+  } catch (err) {
+    console.log("Error running customRequest");
+    console.log(err.message);
+    console.log(request);
+  }
+}
+
+function makeJSONRPCRequestObj(method) {
+  return {
+    jsonrpc: "2.0",
+    method: method,
+    id: Math.ceil(Math.random() * 1000)
+  };
+}
+
+function makeICXCallRequestObj(
+  method,
+  params = null,
+  height = null,
+  to = "cx0000000000000000000000000000000000000000"
+) {
+  const JSONRPCRequestObj = makeJSONRPCRequestObj("icx_call");
+  let data = {
+    ...JSONRPCRequestObj,
+    params: {
+      to: to,
+      dataType: "call",
+      data: {
+        method: method
+      }
+    }
+  };
+
+  if (params == null) {
+  } else {
+    data.params.data.params = params;
+  }
+
+  if (height === null) {
+  } else {
+    if (typeof height !== "number") {
+      throw new Error("Height type must be number");
+    } else {
+      data.params.height = "0x" + height.toString(16);
+    }
+  }
+
+  return JSON.stringify(data);
+}
+
+function hexToDecimal(hex) {
+  return parseInt(hex, 16);
+}
+
+function fromHexInLoop(loopInHex) {
+  let loopInBase2 = hexToDecimal(loopInHex);
+  return loopInBase2 / 10 ** 18;
+}
+
+// SCORE methods
+//
+// CPS methods
+async function getCPSPeriodStatus() {
+  //
+  const JSONRPCObject = makeICXCallRequestObj(
+    "get_period_status",
+    null,
+    null,
+    SCORES.mainnet.cps
+  );
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+async function getProposalKeysByStatus(status) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "get_proposals_keys_by_status",
+    { _status: status },
+    null,
+    SCORES.mainnet.cps
+  );
+
+  if (statusType.includes(status)) {
+    const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+    return request.result;
+  } else {
+    return null;
+  }
+}
+
+async function getProposalDetailsByHash(hash) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "get_proposals_details_by_hash",
+    { _ipfs_key: hash },
+    null,
+    SCORES.mainnet.cps
+  );
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+async function getVoteResultsByHash(hash) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "get_vote_result",
+    { _ipfs_key: hash },
+    null,
+    SCORES.mainnet.cps
+  );
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+async function getAllProposals() {
+  let proposals = {
+    _active: [],
+    _completed: [],
+    _disqualified: [],
+    _paused: [],
+    _pending: []
+  };
+
+  for (let eachStatus of statusType) {
+    const proposalsKeys = await getProposalKeyByStatus(eachStatus);
+
+    for (let eachProposal of proposalsKeys) {
+      const proposal = await getProposalDetailsByHash(eachProposal);
+      const comments = await getVoteResultsByHash(eachProposal);
+
+      proposals[eachStatus].push({
+        proposal: proposal.result,
+        comments: comments.result
+      });
+    }
+  }
+
+  return proposals;
+}
+
+// Network score methods
+async function getProposals() {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getProposals",
+    null,
+    null,
+    SCORES.mainnet.network
+  );
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+// Governance methods
+async function getScoreApi(address = SCORES.mainnet.governance) {
+  //
+  const postData = JSON.stringify({
+    ...makeJSONRPCRequestObject("icx_getScoreApi"),
+    params: {
+      address: address
+    }
+  });
+
+  const response = await customRequest(SCORES.apiRoutes.v3, postData);
+  return response.result;
+}
+
+function getIcxBalance(address, decimals = 2) {
+  //
+}
+
+async function getPreps(height = null) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getPReps",
+    { startRanking: "0x1" },
+    height,
+    SCORES.mainnet.governance
+  );
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+async function getPrep(prepAddress) {
+  //
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getPRep",
+    { address: prepAddress },
+    null,
+    SCORES.mainnet.governance
+  );
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+function parsePrepData(prep) {
+  return {
+    ...prep,
+    bonded: parseInt(fromHexInLoop(prep.bonded)),
+    delegated: parseInt(fromHexInLoop(prep.delegated)),
+    grade:
+      prep.grade === "0x0"
+        ? "Main Prep"
+        : prep.grade === "0x1"
+        ? "Sub Prep"
+        : "Prep candidate",
+    irep: parseInt(fromHexInLoop(prep.irep)),
+    irepUpdateBlockHeight: hexToDecimal(prep.irepUpdateBlockHeight),
+    lastHeight: hexToDecimal(prep.lastHeight),
+    penalty:
+      prep.penalty === "0x0"
+        ? "none"
+        : prep.penalty === "0x1"
+        ? "Disqualification"
+        : prep.penalty === "0x2"
+        ? "Low Productivity"
+        : prep.penalty === "0x3"
+        ? "Block Validation Failure"
+        : "Unknown",
+    power: parseInt(fromHexInLoop(prep.power)),
+    status:
+      prep.status === "0x0"
+        ? "Active"
+        : prep.status === "0x1"
+        ? "unregistered"
+        : prep.status === "0x2"
+        ? "Disqualified"
+        : "Unknown",
+    totalBlocks: hexToDecimal(prep.totalBlocks),
+    validatedBlocks: hexToDecimal(prep.validatedBlocks)
+  };
+}
+
+async function getBonderList(prepAddress) {
+  //
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getBonderList",
+    { address: prepAddress },
+    null,
+    SCORES.mainnet.governance
+  );
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  return request.result;
+}
+
+async function setBonderList(prepAddress, arrayOfBonderAddresses) {
+  //
+}
+
+async function getLastBlock() {
+  const postData = JSON.stringify(makeJSONRPCRequestObject("icx_getLastBlock"));
+
+  const response = await customRequest(SCORES.apiRoutes.v3, postData);
+  return response.result;
+}
+
+const lib = {
+  cps: {
+    getCPSPeriodStatus,
+    getProposalKeysByStatus,
+    getProposalDetailsByHash,
+    getVoteResultsByHash,
+    getAllProposals
+  },
+  governance: {
+    getScoreApi,
+    getPrep,
+    parsePrepData,
+    getPreps,
+    getBonderList,
+    getLastBlock
+  }
+};
+
+module.exports = lib;

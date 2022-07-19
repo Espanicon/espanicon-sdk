@@ -2,13 +2,16 @@
 //
 // Imports
 const IconService = require("icon-sdk-js");
+const {
+  IconBuilder,
+  IconConverter,
+  IconAmount,
+  HttpProvider
+} = IconService.default;
 const SCORES = require("./scores");
 
 // SDK Objects
-const CallBuilder = IconService.IconBuilder.CallBuilder;
-const CallTransactionBuilder = IconService.IconBuilder.CallTransactionBuilder;
-const IconConverter = IconService.IconConverter;
-const IconAmount = IconService.IconAmount;
+const { CallBuilder, CallTransactionBuilder } = IconBuilder;
 
 // Networks
 const MAINNET_API_NODE =
@@ -17,12 +20,27 @@ const TESTNET_API_NODE =
   "https://" + SCORES.apiHostnames.sejong + SCORES.apiRoutes.v3;
 
 // Providers
-const httpProviderMainnet = new IconService.HttpProvider(MAINNET_API_NODE);
-const iconServiceMainnet = new IconService(httpProviderMainnet);
-const httpProviderTestnet = new IconService.HttpProvider(TESTNET_API_NODE);
-const iconServiceTestnet = new IconService(httpProviderTestnet);
+const httpProviderMainnet = new HttpProvider(MAINNET_API_NODE);
+const iconServiceMainnet = new IconService.default(httpProviderMainnet);
+const httpProviderTestnet = new HttpProvider(TESTNET_API_NODE);
+const iconServiceTestnet = new IconService.default(httpProviderTestnet);
 
 // General functions
+const isGetter = (x, name) =>
+  (Object.getOwnPropertyDescriptor(x, name) || {}).get;
+const isFunction = (x, name) => typeof x[name] === "function";
+const deepFunctions = x =>
+  x &&
+  x !== Object.prototype &&
+  Object.getOwnPropertyNames(x)
+    .filter(name => isGetter(x, name) || isFunction(x, name))
+    .concat(deepFunctions(Object.getPrototypeOf(x)) || []);
+const distinctDeepFunctions = x => Array.from(new Set(deepFunctions(x)));
+const getMethods = obj =>
+  distinctDeepFunctions(obj).filter(
+    name => name !== "constructor" && !~name.indexOf("__")
+  );
+
 function convertLoopToIcx(input, format = "decimal", bigNumber = false) {
   const value = IconAmount.of(input, IconAmount.Unit.LOOP).convertUnit(
     IconAmount.Unit.ICX
@@ -70,8 +88,8 @@ function createRandomDate(start, end) {
 async function makeReadOnlyQuery(
   method,
   params = null,
-  contract = MARKETPLACE_SMART_CONTRACT,
-  service = iconService
+  contract = SCORES.mainnet.governance,
+  service = iconServiceMainnet
 ) {
   /*
    * makes readonly tx
@@ -140,7 +158,7 @@ async function getProposalKeysByStatus(status) {
       "get_proposals_keys_by_status",
       { _status: status },
       SCORES.cps,
-      iconServiceMain
+      iconServiceMainnet
     );
   } else {
     return null;
@@ -152,16 +170,16 @@ async function getProposalDetailsByHash(hash) {
     "get_proposal_details_by_hash",
     { _ipfs_key: hash },
     SCORES.cps,
-    iconServiceMain
+    iconServiceMainnet
   );
 }
 
 async function getVoteResultsByHash(hash) {
   return await makeReadOnlyQuery(
-    "get_proposal_details_by_hash",
+    "get_vote_result",
     { _ipfs_key: hash },
     SCORES.cps,
-    iconServiceMain
+    iconServiceMainnet
   );
 }
 
@@ -200,13 +218,19 @@ async function getAllProposals() {
 
 // Main methods
 //
+async function getIcxBalance(address, decimals = 2) {
+  // get icx balance of address
+  const balanceInLoop = await iconServiceMainnet.getBalance(address).execute();
+  const balanceInIcx = convertLoopToIcx(balanceInLoop);
+  return balanceInIcx.toFixed(decimals);
+}
 async function getPreps() {
   //
   return await makeReadOnlyQuery(
     "getPReps",
     { startRanking: "0x1" },
     SCORES.main,
-    iconServiceMain
+    iconServiceMainnet
   );
 }
 
@@ -216,7 +240,7 @@ async function getPrep(prep) {
     "getPRep",
     { address: prep },
     SCORES.main,
-    iconServiceMain
+    iconServiceMainnet
   );
 }
 
@@ -226,7 +250,17 @@ async function getBonderList(prep) {
     "getBonderList",
     { address: prep },
     SCORES.main,
-    iconServiceMain
+    iconServiceMainnet
+  );
+}
+
+async function setBonderList(prepAddress, arrayOfBonderAddresses) {
+  return makeTxRequestObj(
+    "setBonderList",
+    {
+      bonderList: [...arrayOfBonderAddresses]
+    },
+    prepAddress
   );
 }
 
@@ -276,7 +310,7 @@ const lib = {
     getVoteResultsByHash,
     getAllProposals
   },
-  governance: { getPreps, getPrep, getBonderList, parsePrepData }
+  governance: { getPreps, getPrep, getBonderList, setBonderList, parsePrepData }
 };
 
 module.exports = lib;

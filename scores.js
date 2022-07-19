@@ -40,7 +40,8 @@ const apiHostnames = {
 };
 
 const apiRoutes = {
-  v3: "/api/v3"
+  v3: "/api/v3",
+  proposals: "/api/v1/governance/proposals"
 };
 
 const SCORES = {
@@ -53,4 +54,4 @@ const SCORES = {
   apiHostnames
 };
 
-module.exports = SCORES
+module.exports = SCORES;

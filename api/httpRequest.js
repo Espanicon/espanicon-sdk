@@ -1,6 +1,8 @@
-// ./api/httpsRequest.js
-// Imports
+// httpRequest.js
+// This module is an http request wrapped in a promise design to be used
+// to interact with the ICON Blockchain
 //
+// Imports
 const http = require("http");
 
 /**
@@ -18,6 +20,10 @@ async function httpRequest(params, data = false) {
       // Print status code on console
       // console.log("Status code of http response: " + res.statusCode);
       // console.log("headers: ", res.headers);
+      // console.log("Params:");
+      // console.log(params);
+      // console.log("Data:");
+      // console.log(data);
 
       // Process chunked data
       let rawData = "";
@@ -30,8 +36,14 @@ async function httpRequest(params, data = false) {
       }
       // when request completed, pass the data to the 'resolve' callback
       res.on("end", () => {
-        let data = JSON.parse(rawData);
-        resolve(data);
+        let data;
+        try {
+          data = JSON.parse(rawData);
+          resolve(data);
+        } catch (err) {
+          data = { error: err.message, message: rawData };
+          resolve(data);
+        }
       });
 
       // if error, print on console
