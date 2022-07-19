@@ -1,11 +1,12 @@
 // tests/utils.js
 //
 // Imports
+const { alertMsg, warningMsg, successMsg } = require("@fidelve/colorlog");
 async function createTest(method, params = false, ...rest) {
   console.log(
-    `!----------------\nRunning test on ${
+    `!----------------\nRunning test on ${successMsg(
       method.name
-    }. with params: ${JSON.stringify(arguments)}`
+    )}.\nParams: ${JSON.stringify(arguments)}`
   );
 
   let result;
@@ -14,8 +15,30 @@ async function createTest(method, params = false, ...rest) {
   } else {
     result = await method();
   }
-  console.log(result);
+  console.log(warningMsg("Results:"));
+  if (typeof result === "object") {
+    console.log(JSON.stringify(result).slice(0, 200) + "...}");
+  } else {
+    console.log(result);
+  }
   return result;
 }
 
-module.exports = { createTest };
+async function runTestModule(module, moduleName, skip = false) {
+  if (skip) {
+    console.log(
+      `!-----------------\n${warningMsg(
+        "Skipping tests"
+      )} on module: ${warningMsg(moduleName)}`
+    );
+  } else {
+    console.log(
+      `!-----------------\n${successMsg(
+        "Running tests"
+      )} on module: ${warningMsg(moduleName)}`
+    );
+    await module();
+  }
+}
+
+module.exports = { createTest, runTestModule };

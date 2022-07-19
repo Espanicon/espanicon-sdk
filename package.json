@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/main.tests.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fidelve/colorlog": "github:FidelVe/colorLog",
     "icon-sdk-js": "^1.2.3"
   }
 }
