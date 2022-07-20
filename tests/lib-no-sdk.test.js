@@ -14,6 +14,7 @@ const {
   approveNetworkProposal,
   rejectNetworkProposal
 } = lib.governance;
+const { getAllProposals } = lib.cps;
 
 const { createTest } = require("./utils.js");
 const SCORES = require("../scores");
@@ -58,6 +59,10 @@ async function libNoSdkTests() {
     "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
     TEST_WALLET
   );
+
+  // // test on getAllProposals
+  // let cpsProposals = await createTest(getAllProposals);
+  // console.log(JSON.stringify(cpsProposals));
 }
 
 module.exports = libNoSdkTests;

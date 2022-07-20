@@ -169,7 +169,7 @@ async function getProposalKeysByStatus(status) {
 
 async function getProposalDetailsByHash(hash) {
   const JSONRPCObject = makeICXCallRequestObj(
-    "get_proposals_details_by_hash",
+    "get_proposal_details_by_hash",
     { _ipfs_key: hash },
     null,
     SCORES.mainnet.cps
@@ -201,15 +201,15 @@ async function getAllProposals() {
   };
 
   for (let eachStatus of statusType) {
-    const proposalsKeys = await getProposalKeyByStatus(eachStatus);
+    const proposalsKeys = await getProposalKeysByStatus(eachStatus);
 
     for (let eachProposal of proposalsKeys) {
       const proposal = await getProposalDetailsByHash(eachProposal);
       const comments = await getVoteResultsByHash(eachProposal);
 
       proposals[eachStatus].push({
-        proposal: proposal.result,
-        comments: comments.result
+        proposal: proposal,
+        comments: comments
       });
     }
   }
