@@ -129,16 +129,21 @@ async function makeTxRequestObj(
   const txObj = new CallTransactionBuilder()
     .from(from)
     .to(to)
-    .stepLimit(IconConverter.toBigNumber("2000000"))
-    .nid(IconConverter.toBigNumber(nid))
-    .nonce(IconConverter.toBigNumber("1"))
-    .version(IconConverter.toBigNumber("3"))
-    .timestamp(new Date().getTime() * 1000)
+    .stepLimit(IconConverter.toHex(2000000))
+    .nid(IconConverter.toHex(nid))
+    .nonce(IconConverter.toHex(1))
+    .version(IconConverter.toHex(3))
+    .timestamp(IconConverter.toHex(new Date().getTime() * 1000))
     .method(method)
     .params(params)
     .build();
 
-  return txObj;
+  return {
+    jsonrpc: "2.0",
+    method: "icx_sendTransaction",
+    id: Math.ceil(Math.random() * 1000),
+    params: txObj
+  };
 }
 
 // CPS methods

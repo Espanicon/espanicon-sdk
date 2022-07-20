@@ -1,20 +1,25 @@
 // lib-no-sdk.test.js
 //
 // Imports
+require("dotenv").config();
 const lib = require("../lib-no-sdk");
 const {
   getPreps,
   getPrep,
   parsePrepData,
   getBonderList,
+  setBonderList,
   getScoreApi,
-  getLastBlock
+  getLastBlock,
+  approveNetworkProposal,
+  rejectNetworkProposal
 } = lib.governance;
 
 const { createTest } = require("./utils.js");
+const SCORES = require("../scores");
 
-const TEST_WALLET = "hx9fa9d224306b0722099d30471b3c2306421aead7";
-const TEST_CONTRACT = "cx0000000000000000000000000000000000000000";
+const TEST_WALLET = process.env.TEST_NODE_WALLET;
+const TEST_CONTRACT = SCORES.mainnet.governance;
 
 async function libNoSdkTests() {
   // test on GetPreps
@@ -29,11 +34,30 @@ async function libNoSdkTests() {
   // test on getBonderList
   await createTest(getBonderList, true, TEST_WALLET);
 
+  // test on setBonderList
+  let txObj = await createTest(setBonderList, true, TEST_WALLET, [TEST_WALLET]);
+
   // test on getScoreApi
   await createTest(getScoreApi, true, TEST_CONTRACT);
 
   // test on getLastBlock
   await createTest(getLastBlock);
+
+  // test on approveNetworkProposal
+  await createTest(
+    approveNetworkProposal,
+    true,
+    "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+    TEST_WALLET
+  );
+
+  // test on rejectNetworkProposal
+  await createTest(
+    rejectNetworkProposal,
+    true,
+    "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
+    TEST_WALLET
+  );
 }
 
 module.exports = libNoSdkTests;

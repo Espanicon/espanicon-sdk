@@ -3,6 +3,7 @@
 // Imports
 const { alertMsg, warningMsg, successMsg } = require("@fidelve/colorlog");
 async function createTest(method, params = false, ...rest) {
+  let maxChar = 2000;
   console.log(
     `!----------------\nRunning test on ${successMsg(
       method.name
@@ -18,8 +19,8 @@ async function createTest(method, params = false, ...rest) {
   console.log(warningMsg("Results:"));
   if (typeof result === "object") {
     const stringResult = JSON.stringify(result);
-    if (stringResult.length > 200) {
-      console.log(stringResult.slice(0, 200) + "...}");
+    if (stringResult.length > maxChar) {
+      console.log(stringResult.slice(0, maxChar) + "...}");
     } else {
       console.log(stringResult);
     }

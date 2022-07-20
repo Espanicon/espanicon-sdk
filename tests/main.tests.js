@@ -4,8 +4,8 @@ const libWithSdkTests = require("./lib-with-sdk.test");
 const { runTestModule } = require("./utils");
 
 async function runAllTests() {
-  runTestModule(libWithSdkTests, "lib-with-sdk.js", true);
-  runTestModule(libNoSdkTests, "lib-no-sdk.js");
+  await runTestModule(libWithSdkTests, "lib-with-sdk.js");
+  await runTestModule(libNoSdkTests, "lib-no-sdk.js");
 }
 
 runAllTests();

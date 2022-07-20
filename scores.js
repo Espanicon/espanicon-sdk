@@ -23,10 +23,10 @@ const lisbon = {
 };
 
 const nid = {
-  mainnet: "1",
-  lisbon: "2",
-  berlin: "7",
-  sejong: "83"
+  mainnet: 1,
+  lisbon: 2,
+  berlin: 7,
+  sejong: 83
 };
 
 const apiHostnames = {

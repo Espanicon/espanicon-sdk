@@ -1,6 +1,7 @@
 // lib-with-sdk.test.js
 //
 // Imports
+require("dotenv").config();
 const lib = require("../lib-with-sdk");
 const {
   getPreps,
@@ -10,16 +11,17 @@ const {
   parsePrepData
 } = lib.governance;
 const { createTest } = require("./utils.js");
+const SCORES = require("../scores");
+
+const TEST_WALLET = process.env.TEST_NODE_WALLET;
+const TEST_CONTRACT = SCORES.mainnet.governance;
 
 async function libWithSdkTests() {
   // test on GetPreps
-  await createTest(getPrep, true, "hx9fa9d224306b0722099d30471b3c2306421aead7");
-  await createTest(
-    setBonderList,
-    true,
-    "hx9fa9d224306b0722099d30471b3c2306421aead7",
-    ["hx9fa9d224306b0722099d30471b3c2306421aead7"]
-  );
+  await createTest(getPrep, true, TEST_WALLET);
+  let bonderList = await createTest(setBonderList, true, TEST_WALLET, [
+    TEST_WALLET
+  ]);
 }
 
 module.exports = libWithSdkTests;

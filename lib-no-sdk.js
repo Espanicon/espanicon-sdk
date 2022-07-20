@@ -60,6 +60,33 @@ function makeJSONRPCRequestObj(method) {
   };
 }
 
+function makeTxCallRPCObj(
+  from,
+  to,
+  method,
+  paramsObj,
+  nid = SCORES.nid.mainnet,
+  stepLimit = 2000000
+) {
+  let txObj = makeJSONRPCRequestObj("icx_sendTransaction");
+  txObj["params"] = {
+    from: from,
+    to: to,
+    stepLimit: decimalToHex(stepLimit),
+    nid: decimalToHex(nid),
+    nonce: decimalToHex(1),
+    version: decimalToHex(3),
+    timestamp: decimalToHex(new Date().getTime() * 1000),
+    dataType: "call",
+    data: {
+      method: method,
+      params: paramsObj
+    }
+  };
+
+  return txObj;
+}
+
 function makeICXCallRequestObj(
   method,
   params = null,
@@ -97,6 +124,10 @@ function makeICXCallRequestObj(
 
 function hexToDecimal(hex) {
   return parseInt(hex, 16);
+}
+
+function decimalToHex(number) {
+  return "0x" + number.toString(16);
 }
 
 function fromHexInLoop(loopInHex) {
@@ -292,8 +323,30 @@ async function getBonderList(prepAddress) {
   return request.result;
 }
 
-async function setBonderList(prepAddress, arrayOfBonderAddresses) {
-  //
+function setBonderList(prepAddress, arrayOfBonderAddresses) {
+  return makeTxCallRPCObj(
+    prepAddress,
+    SCORES.mainnet.governance,
+    "setBonderList",
+    {
+      bonderList: [...arrayOfBonderAddresses]
+    }
+  );
+}
+
+function voteNetworkProposal(proposalId, vote, prepAddress) {
+  return makeTxCallRPCObj(prepAddress, SCORES.mainnet.network, "voteProposal", {
+    id: proposalId,
+    vote: vote
+  });
+}
+
+function approveNetworkProposal(proposalId, prepAddress) {
+  return voteNetworkProposal(proposalId, "0x1", prepAddress);
+}
+
+function rejectNetworkProposal(proposalId, prepAddress) {
+  return voteNetworkProposal(proposalId, "0x0", prepAddress);
 }
 
 async function getLastBlock() {
@@ -319,7 +372,10 @@ const lib = {
     parsePrepData,
     getPreps,
     getBonderList,
-    getLastBlock
+    setBonderList,
+    getLastBlock,
+    approveNetworkProposal,
+    rejectNetworkProposal
   }
 };
 
