@@ -376,6 +376,11 @@ const lib = {
     getLastBlock,
     approveNetworkProposal,
     rejectNetworkProposal
+  },
+  lib: {
+    hexToDecimal,
+    decimalToHex,
+    fromHexInLoop
   }
 };
 
