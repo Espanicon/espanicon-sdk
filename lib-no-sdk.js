@@ -110,7 +110,15 @@ async function getCPSPeriodStatus() {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 async function getProposalKeysByStatus(status) {
@@ -123,7 +131,15 @@ async function getProposalKeysByStatus(status) {
 
   if (statusType.includes(status)) {
     const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-    return request.result;
+    if (request == null) {
+      // Error was raised and handled inside customRequest, the returned value
+      // is null. Here we continue returning null and let the code logic
+      // after this handle the null values in the most appropiate way depending
+      // on the code logic
+      return request;
+    } else {
+      return request.result;
+    }
   } else {
     return null;
   }
@@ -138,7 +154,15 @@ async function getProposalDetailsByHash(hash) {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 async function getVoteResultsByHash(hash) {
@@ -150,7 +174,15 @@ async function getVoteResultsByHash(hash) {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 async function getAllProposals() {
@@ -189,7 +221,15 @@ async function getProposals() {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 // Governance methods
@@ -203,11 +243,75 @@ async function getScoreApi(address = SCORES.mainnet.governance) {
   });
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
-function getIcxBalance(address, decimals = 2) {
-  //
+async function getIcxBalance(address, decimals = 2) {
+  const JSONRPCObject = JSON.stringify({
+    ...makeJSONRPCRequestObj("icx_getBalance"),
+    params: {
+      address: address
+    }
+  });
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return Number(fromHexInLoop(request.result).toFixed(decimals));
+  }
+}
+
+async function getTxResult(txHash) {
+  const JSONRPCObject = JSON.stringify({
+    ...makeJSONRPCRequestObj("icx_getTransactionResult"),
+    params: {
+      txHash: txHash
+    }
+  });
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+
+async function getTxByHash(txHash) {
+  const JSONRPCObject = JSON.stringify({
+    ...makeJSONRPCRequestObj("icx_getTransactionByHash"),
+    params: {
+      txHash: txHash
+    }
+  });
+
+  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 async function getPreps(height = null) {
@@ -218,7 +322,15 @@ async function getPreps(height = null) {
     SCORES.mainnet.governance
   );
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 async function getPrep(prepAddress) {
@@ -231,7 +343,15 @@ async function getPrep(prepAddress) {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 function parsePrepData(prep) {
@@ -282,7 +402,15 @@ async function getBonderList(prepAddress) {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 function setBonderList(prepAddress, arrayOfBonderAddresses) {
@@ -317,7 +445,15 @@ async function getLastBlock() {
   );
 
   const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
-  return request.result;
+  if (request == null) {
+    // Error was raised and handled inside customRequest, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
 }
 
 const lib = {
@@ -330,6 +466,9 @@ const lib = {
   },
   governance: {
     getScoreApi,
+    getIcxBalance,
+    getTxResult,
+    getTxByHash,
     getPrep,
     parsePrepData,
     getPreps,

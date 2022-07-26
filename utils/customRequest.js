@@ -116,12 +116,15 @@ async function customRequest(
       // if there is no error
       return request;
     } else {
-      throw new Error("Request returned error");
+      throw new Error(
+        "Request made successfully but returned Error from the node"
+      );
     }
   } catch (err) {
     console.log("Error running customRequest");
     console.log(err.message);
     console.log(request);
+    return null;
   }
 }
 

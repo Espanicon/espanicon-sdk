@@ -10,6 +10,7 @@ const {
   getBonderList,
   setBonderList,
   getScoreApi,
+  getIcxBalance,
   getLastBlock,
   approveNetworkProposal,
   rejectNetworkProposal
@@ -59,6 +60,9 @@ async function libNoSdkTests() {
     "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238",
     TEST_WALLET
   );
+
+  // test on getIcxBalance
+  await createTest(getIcxBalance, true, TEST_WALLET + "33");
 
   // // test on getAllProposals
   // let cpsProposals = await createTest(getAllProposals);
