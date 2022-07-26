@@ -11,7 +11,7 @@ const {
   parsePrepData
 } = lib.governance;
 const { createTest } = require("./utils.js");
-const SCORES = require("../scores");
+const SCORES = require("../utils/scores");
 
 const TEST_WALLET = process.env.TEST_NODE_WALLET;
 const TEST_CONTRACT = SCORES.mainnet.governance;

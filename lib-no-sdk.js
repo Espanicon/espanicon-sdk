@@ -1,9 +1,8 @@
 // lib-no-sdk.js
 //
 // Imports
-const httpRequest = require("./api/httpRequest");
-const httpsRequest = require("./api/httpsRequest");
-const SCORES = require("./scores");
+const customRequest = require("./utils/customRequest");
+const SCORES = require("./utils/scores");
 
 // global var declarations
 const statusType = [
@@ -15,43 +14,6 @@ const statusType = [
 ];
 
 // General Functions
-async function customRequest(
-  path,
-  data = false,
-  hostname = SCORES.apiHostnames.espanicon,
-  https = true
-) {
-  let request;
-  try {
-    let params = {
-      hostname: hostname,
-      path: path,
-      method: data ? "POST" : "GET",
-      headers: {
-        "Content-Type": "text/plain",
-        charset: "UTF-8"
-      }
-    };
-
-    if (https) {
-      request = await httpsRequest(params, data);
-    } else {
-      request = await httpRequest(params, data);
-    }
-
-    if (request.error == null) {
-      // if there is no error
-      return request;
-    } else {
-      throw new Error("Request returned error");
-    }
-  } catch (err) {
-    console.log("Error running customRequest");
-    console.log(err.message);
-    console.log(request);
-  }
-}
-
 function makeJSONRPCRequestObj(method) {
   return {
     jsonrpc: "2.0",

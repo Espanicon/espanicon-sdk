@@ -19,7 +19,7 @@ const berlin = {
 const lisbon = {
   //
   governance: "cx0000000000000000000000000000000000000000",
-  network: "cx0000000000000000000000000000000000000001"
+  governance2: "cx0000000000000000000000000000000000000001"
 };
 
 const nid = {
@@ -32,11 +32,13 @@ const nid = {
 const apiHostnames = {
   geometry: "api.icon.geometry.io", // deprecated
   ctz: "ctz.solidwallet.io",
+  icon: "api.icon.community",
   espanicon: "api.espanicon.team",
   sejong: "sejong.net.solidwallet.io",
   berlin: "berlin.net.solidwallet.io",
   lisbon: "lisbon.net.solidwallet.io",
-  localhost: "localhost"
+  localhost: "localhost",
+  node: "65.108.47.72"
 };
 
 const apiRoutes = {

@@ -8,7 +8,7 @@ const {
   IconAmount,
   HttpProvider
 } = IconService.default;
-const SCORES = require("./scores");
+const SCORES = require("./utils/scores");
 
 // SDK Objects
 const { CallBuilder, CallTransactionBuilder } = IconBuilder;

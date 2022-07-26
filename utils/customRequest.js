@@ -1,12 +1,14 @@
-// httpRequest.js
-// This module is an http request wrapped in a promise design to be used
+// httpsRequest.js
+// This module is an https request wrapped in a promise design to be used
 // to interact with the ICON Blockchain
 //
 // Imports
+const https = require("https");
 const http = require("http");
+const SCORES = require("./scores");
 
 /**
- * async http request wrapped in a promise
+ * async https/http request wrapped in a promise
  * @param {Object} param - params for the http request
  * @param {string} param.hostname
  * @param {string} param.ip
@@ -14,16 +16,21 @@ const http = require("http");
  * @param {number} param.timeout
  * @param {string} param.path
  */
-async function httpRequest(params, data = false) {
+async function httpx(params, data = false, runSecured = true) {
+  let method = http;
+  if (runSecured) {
+    method = https;
+  }
+
   const promisifiedQuery = new Promise((resolve, reject) => {
-    const query = http.request(params, res => {
+    const query = method.request(params, res => {
       // Print status code on console
-      // console.log("Status code of http response: " + res.statusCode);
-      // console.log("headers: ", res.headers);
-      // console.log("Params:");
-      // console.log(params);
-      // console.log("Data:");
-      // console.log(data);
+      console.log("Status Code: " + res.statusCode);
+      console.log("headers: ", res.headers);
+      console.log("Params:");
+      console.log(params);
+      console.log("data:");
+      console.log(data);
 
       // Process chunked data
       let rawData = "";
@@ -34,6 +41,7 @@ async function httpRequest(params, data = false) {
       for (let item in res.headers) {
         // console.log(item + ": " + res.headers[item]);
       }
+
       // when request completed, pass the data to the 'resolve' callback
       res.on("end", () => {
         let data;
@@ -42,20 +50,18 @@ async function httpRequest(params, data = false) {
           resolve(data);
         } catch (err) {
           data = { error: err.message, message: rawData };
-          resolve(data);
+          reject(data);
         }
       });
 
       // if error, print on console
       res.on("error", err => {
-        console.log("Error while running http request: ", +err);
+        console.log("Got error: ", +err.message);
       });
     });
     // If request timeout destroy request
     query.on("timeout", () => {
-      console.log(
-        `timeout while running http request with no response after ${params.timeout} ms. destroying query`
-      );
+      console.log("timeout. destroying query");
       query.destroy();
     });
     // Handle query error
@@ -80,4 +86,43 @@ async function httpRequest(params, data = false) {
   }
 }
 
-module.exports = httpRequest;
+async function customRequest(
+  path,
+  data = false,
+  hostname = SCORES.apiHostnames.espanicon,
+  https = true,
+  port = false
+) {
+  let request;
+  try {
+    let params = {
+      hostname: hostname,
+      path: path,
+      method: data ? "POST" : "GET",
+      headers: {
+        "Content-Type": "text/plain",
+        charset: "UTF-8"
+      },
+      port: port ? port : https ? 443 : 80
+    };
+
+    if (https) {
+      request = await httpx(params, data);
+    } else {
+      request = await httpx(params, data, false);
+    }
+
+    if (request.error == null) {
+      // if there is no error
+      return request;
+    } else {
+      throw new Error("Request returned error");
+    }
+  } catch (err) {
+    console.log("Error running customRequest");
+    console.log(err.message);
+    console.log(request);
+  }
+}
+
+module.exports = customRequest;
