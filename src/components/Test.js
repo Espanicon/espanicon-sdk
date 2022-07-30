@@ -5,14 +5,13 @@ import styles from "./test.module.css";
 
 const maxLength = 800;
 
-export default function Test({ method, params = [] }) {
+export default function Test({ method, params = false, rest = [] }) {
   const [testResult, setTestResult] = useState(null);
   const [parsedResponse, setParsedResponse] = useState(null);
 
   useEffect(() => {
     async function runTest() {
-      const response = await createTest(method, params);
-      console.log(response);
+      const response = await createTest(method, params, ...rest);
       const stringResult = JSON.stringify(response.result);
       if (stringResult.length > maxLength) {
         setParsedResponse(stringResult.slice(0, maxLength) + "...}");

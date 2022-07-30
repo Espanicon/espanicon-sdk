@@ -109,9 +109,9 @@ async function getCPSPeriodStatus() {
     SCORES.mainnet.cps
   );
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -121,7 +121,7 @@ async function getCPSPeriodStatus() {
   }
 }
 
-async function getProposalKeysByStatus(status) {
+async function getCPSProposalKeysByStatus(status) {
   const JSONRPCObject = makeICXCallRequestObj(
     "get_proposals_keys_by_status",
     { _status: status },
@@ -130,9 +130,9 @@ async function getProposalKeysByStatus(status) {
   );
 
   if (statusType.includes(status)) {
-    const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+    const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
     if (request == null) {
-      // Error was raised and handled inside customRequest, the returned value
+      // Error was raised and handled inside customFetch, the returned value
       // is null. Here we continue returning null and let the code logic
       // after this handle the null values in the most appropiate way depending
       // on the code logic
@@ -145,7 +145,7 @@ async function getProposalKeysByStatus(status) {
   }
 }
 
-async function getProposalDetailsByHash(hash) {
+async function getCPSProposalDetailsByHash(hash) {
   const JSONRPCObject = makeICXCallRequestObj(
     "get_proposal_details_by_hash",
     { _ipfs_key: hash },
@@ -153,9 +153,9 @@ async function getProposalDetailsByHash(hash) {
     SCORES.mainnet.cps
   );
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -165,7 +165,7 @@ async function getProposalDetailsByHash(hash) {
   }
 }
 
-async function getVoteResultsByHash(hash) {
+async function getCPSProposalVoteResultsByHash(hash) {
   const JSONRPCObject = makeICXCallRequestObj(
     "get_vote_result",
     { _ipfs_key: hash },
@@ -173,9 +173,9 @@ async function getVoteResultsByHash(hash) {
     SCORES.mainnet.cps
   );
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -185,7 +185,7 @@ async function getVoteResultsByHash(hash) {
   }
 }
 
-async function getAllProposals() {
+async function getAllCPSProposals() {
   let proposals = {
     _active: [],
     _completed: [],
@@ -195,11 +195,11 @@ async function getAllProposals() {
   };
 
   for (let eachStatus of statusType) {
-    const proposalsKeys = await getProposalKeysByStatus(eachStatus);
+    const proposalsKeys = await getCPSProposalKeysByStatus(eachStatus);
 
     for (let eachProposal of proposalsKeys) {
-      const proposal = await getProposalDetailsByHash(eachProposal);
-      const comments = await getVoteResultsByHash(eachProposal);
+      const proposal = await getCPSProposalDetailsByHash(eachProposal);
+      const comments = await getCPSProposalVoteResultsByHash(eachProposal);
 
       proposals[eachStatus].push({
         proposal: proposal,
@@ -220,9 +220,9 @@ async function getProposals() {
     SCORES.mainnet.network
   );
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -242,9 +242,9 @@ async function getScoreApi(address = SCORES.mainnet.governance) {
     }
   });
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -262,9 +262,9 @@ async function getIcxBalance(address, decimals = 2) {
     }
   });
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -282,9 +282,9 @@ async function getTxResult(txHash) {
     }
   });
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -302,9 +302,9 @@ async function getTxByHash(txHash) {
     }
   });
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -323,7 +323,7 @@ async function getPreps(height = null) {
   );
   const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -344,7 +344,7 @@ async function getPrep(prepAddress) {
 
   const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -401,9 +401,9 @@ async function getBonderList(prepAddress) {
     SCORES.mainnet.governance
   );
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -446,7 +446,7 @@ async function getLastBlock() {
 
   const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
-    // Error was raised and handled inside customRequest, the returned value
+    // Error was raised and handled inside customFetch, the returned value
     // is null. Here we continue returning null and let the code logic
     // after this handle the null values in the most appropiate way depending
     // on the code logic
@@ -459,10 +459,10 @@ async function getLastBlock() {
 const lib = {
   cps: {
     getCPSPeriodStatus,
-    getProposalKeysByStatus,
-    getProposalDetailsByHash,
-    getVoteResultsByHash,
-    getAllProposals
+    getCPSProposalKeysByStatus,
+    getCPSProposalDetailsByHash,
+    getCPSProposalVoteResultsByHash,
+    getAllCPSProposals
   },
   governance: {
     getScoreApi,

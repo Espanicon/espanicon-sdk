@@ -1,6 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
+const webpack = require("webpack");
+// const Dotenv = require("dotenv-webpack");
+const dotenv = require("dotenv");
+const env = dotenv.config().parsed;
+
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
   mode: "development",
@@ -18,7 +26,15 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
+            presets: [
+              "@babel/preset-env",
+              [
+                "@babel/preset-react",
+                {
+                  development: true
+                }
+              ]
+            ]
           }
         }
       },
@@ -33,7 +49,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new Dotenv(),
+    new webpack.DefinePlugin(envKeys),
+    // new Dotenv(),
     new HtmlWebpackPlugin({
       title: "Output",
       myPageHeader: "Page Header",

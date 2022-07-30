@@ -49,7 +49,7 @@ async function customFetch(
 
     // make fetch call with created request object
     const response = await fetch(customRequest);
-    const queryResult = await response.json();
+    queryResult = await response.json();
     // console.log("query result");
     // console.log(queryResult);
 
