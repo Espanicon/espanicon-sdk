@@ -3,14 +3,23 @@ import createTest from "../utils";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./test.module.css";
 
-export default function Test({ method }) {
+const maxLength = 800;
+
+export default function Test({ method, params = [] }) {
   const [testResult, setTestResult] = useState(null);
+  const [parsedResponse, setParsedResponse] = useState(null);
 
   useEffect(() => {
     async function runTest() {
-      const testResult = await createTest(method);
-      // console.log(testResult);
-      setTestResult(testResult);
+      const response = await createTest(method, params);
+      console.log(response);
+      const stringResult = JSON.stringify(response.result);
+      if (stringResult.length > maxLength) {
+        setParsedResponse(stringResult.slice(0, maxLength) + "...}");
+      } else {
+        setParsedResponse(stringResult);
+      }
+      setTestResult(response);
     }
     runTest();
   }, []);
@@ -30,9 +39,7 @@ export default function Test({ method }) {
       </p>
       <p>Function params: {JSON.stringify(testResult.arr)}</p>
       {testResult.raisedWarning ? <p>WARNING: {testResult.warning}</p> : <></>}
-      <pre className={styles.testResult}>
-        {JSON.stringify(testResult.result)}
-      </pre>
+      <pre className={styles.testResult}>{parsedResponse}</pre>
     </div>
   );
 }

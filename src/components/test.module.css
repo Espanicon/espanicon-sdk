@@ -7,7 +7,9 @@
   font-size: 0.9rem;
   display: flex;
   flex-flow: column nowrap;
+  /* align-items: center; */
   text-align: left;
+  margin: 5px;
 }
 .main p {
   margin: 5px;

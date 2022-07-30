@@ -321,7 +321,7 @@ async function getPreps(height = null) {
     height,
     SCORES.mainnet.governance
   );
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside customRequest, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -342,7 +342,7 @@ async function getPrep(prepAddress) {
     SCORES.mainnet.governance
   );
 
-  const request = await customRequest(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await customFetch(SCORES.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside customRequest, the returned value
     // is null. Here we continue returning null and let the code logic
