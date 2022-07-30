@@ -8,7 +8,7 @@ const {
   getScoreApi, // tested
   getIcxBalance, // tested
   getTxResult, // tested
-  getTxByHash,
+  getTxByHash, // tested
   getPrep, // tested
   parsePrepData, // TODO:cannot be tested with current setup
   getPreps, // tested
@@ -20,11 +20,11 @@ const {
 } = lib.governance;
 
 const {
-  getCPSPeriodStatus,
-  getCPSProposalKeysByStatus,
-  getCPSProposalDetailsByHash,
-  getCPSProposalVoteResultsByHash,
-  getAllCPSProposals
+  getCPSPeriodStatus, // tested
+  getCPSProposalKeysByStatus, // tested
+  getCPSProposalDetailsByHash, // tested
+  getCPSProposalVoteResultsByHash, // tested
+  getAllCPSProposals // tested
 } = lib.cps;
 
 const TEST_WALLET = ENV_VAR.TEST_NODE_WALLET;
@@ -125,7 +125,7 @@ export default function App() {
             ]}
           />
           {/* test on getAllCPSProposal */}
-          <Test method={getAllCPSProposals} />
+          {/* <Test method={getAllCPSProposals} /> */}
         </div>
       </header>
     </div>

@@ -25,12 +25,12 @@ async function httpx(params, data = false, runSecured = true) {
   const promisifiedQuery = new Promise((resolve, reject) => {
     const query = method.request(params, res => {
       // Print status code on console
-      console.log("Status Code: " + res.statusCode);
-      console.log("headers: ", res.headers);
-      console.log("Params:");
-      console.log(params);
-      console.log("data:");
-      console.log(data);
+      // console.log("Status Code: " + res.statusCode);
+      // console.log("headers: ", res.headers);
+      // console.log("Params:");
+      // console.log(params);
+      // console.log("data:");
+      // console.log(data);
 
       // Process chunked data
       let rawData = "";
@@ -39,7 +39,7 @@ async function httpx(params, data = false, runSecured = true) {
       });
 
       // for (let item in res.headers) {
-        // console.log(item + ": " + res.headers[item]);
+      // console.log(item + ": " + res.headers[item]);
       // }
 
       // when request completed, pass the data to the 'resolve' callback
@@ -82,7 +82,7 @@ async function httpx(params, data = false, runSecured = true) {
   } catch (err) {
     console.log("error while running promisifiedQuery");
     console.log(err);
-    throw new Error("error connecting to node")
+    throw new Error("error connecting to node");
   }
 }
 

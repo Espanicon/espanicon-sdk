@@ -4,18 +4,27 @@
 require("dotenv").config();
 const lib = require("../lib-no-sdk");
 const {
-  getPreps,
-  getPrep,
-  parsePrepData,
-  getBonderList,
-  setBonderList,
-  getScoreApi,
-  getIcxBalance,
-  getLastBlock,
-  approveNetworkProposal,
-  rejectNetworkProposal
+  getScoreApi, // tested
+  getIcxBalance, // tested
+  getTxResult,
+  getTxByHash,
+  getPrep, // tested
+  parsePrepData, // TODO:cannot be tested with current setup
+  getPreps, // tested
+  getBonderList, // tested
+  setBonderList, // tested
+  getLastBlock, // tested
+  approveNetworkProposal, // tested
+  rejectNetworkProposal // tested
 } = lib.governance;
-const { getAllProposals } = lib.cps;
+
+const {
+  getCPSPeriodStatus,
+  getCPSProposalKeysByStatus,
+  getCPSProposalDetailsByHash,
+  getCPSProposalVoteResultsByHash,
+  getAllCPSProposals
+} = lib.cps;
 
 const { createTest } = require("./utils.js");
 const SCORES = require("../utils/scores");
@@ -67,6 +76,21 @@ async function libNoSdkTests() {
   // // test on getAllProposals
   // let cpsProposals = await createTest(getAllProposals);
   // console.log(JSON.stringify(cpsProposals));
+  //
+  // test on getTxResult
+  await createTest(
+    getTxResult,
+    true,
+    "0x28f038854ecaa9b2d614ac8d6e8b06e9c7f80f29889c7e381f0c96481f7ed873",
+    TEST_WALLET
+  );
+  // test on getTxByHash
+  await createTest(
+    getTxByHash,
+    true,
+    "0x28f038854ecaa9b2d614ac8d6e8b06e9c7f80f29889c7e381f0c96481f7ed873",
+    TEST_WALLET
+  );
 }
 
 module.exports = libNoSdkTests;
