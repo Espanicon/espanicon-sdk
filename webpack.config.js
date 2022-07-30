@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
 // const Dotenv = require("dotenv-webpack");
 const dotenv = require("dotenv");
 const env = dotenv.config().parsed;
@@ -60,7 +61,18 @@ module.exports = {
   ],
   devServer: {
     static: "./dist"
-  }
+  },
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [
+  //     new TerserPlugin({
+  //       terserOptions: {
+  //         keep_classnames: true,
+  //         keep_fnames: true
+  //       }
+  //     })
+  //   ]
+  // }
   // resolve: {
   //   fallback: {
   //     os: require.resolve("os-browserify/browser"),

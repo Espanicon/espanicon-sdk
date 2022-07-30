@@ -7,7 +7,7 @@ import ENV_VAR from "../web-test.config.json";
 const {
   getScoreApi, // tested
   getIcxBalance, // tested
-  getTxResult,
+  getTxResult, // tested
   getTxByHash,
   getPrep, // tested
   parsePrepData, // TODO:cannot be tested with current setup
@@ -38,6 +38,7 @@ export default function App() {
           <h1>
             Web Interface for testing the Espanicon SDK (web based library)
           </h1>
+          <h3>>Test on methods for governance contract:</h3>
           {/* Test on getPrep */}
           <Test method={getPrep} params={true} rest={[TEST_WALLET]} />
           {/* Test on parsePrepData */}
@@ -82,6 +83,49 @@ export default function App() {
           {/* test on getIcxBalance */}
           <Test method={getIcxBalance} params={true} rest={[TEST_WALLET]} />
           {/* test on getAllProposals */}
+          {/* test on getTxResult */}
+          <Test
+            method={getTxResult}
+            params={true}
+            rest={[
+              "0x28f038854ecaa9b2d614ac8d6e8b06e9c7f80f29889c7e381f0c96481f7ed873"
+            ]}
+          />
+          {/* test on getTxByHash */}
+          <Test
+            method={getTxByHash}
+            params={true}
+            rest={[
+              "0x28f038854ecaa9b2d614ac8d6e8b06e9c7f80f29889c7e381f0c96481f7ed873"
+            ]}
+          />
+          <h3>>Test on methods for cps contract:</h3>
+          {/* test on getCPSPeriodStatus */}
+          <Test method={getCPSPeriodStatus} />
+          {/* test on getCPSProposalKeysByStatus */}
+          <Test
+            method={getCPSProposalKeysByStatus}
+            params={true}
+            rest={["_active"]}
+          />
+          {/* test on getCPSProposalDetailsByHash */}
+          <Test
+            method={getCPSProposalDetailsByHash}
+            params={true}
+            rest={[
+              "bafybeieaasafdztabpd7rjqvysy6h7ttmrq6iqlmmtzqlgitztnd2ohxdu"
+            ]}
+          />
+          {/* test on getCPSProposalVoteResultsByHash */}
+          <Test
+            method={getCPSProposalVoteResultsByHash}
+            params={true}
+            rest={[
+              "bafybeieaasafdztabpd7rjqvysy6h7ttmrq6iqlmmtzqlgitztnd2ohxdu"
+            ]}
+          />
+          {/* test on getAllCPSProposal */}
+          <Test method={getAllCPSProposals} />
         </div>
       </header>
     </div>
