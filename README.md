@@ -22,7 +22,7 @@ import espaniconLib from '@espanicon/espanicon-sdk';
 The library exposes an object that divides the methods according to the smart contract they related to:
 ```
 {
-  cps: {
+cps: {
     getCPSPeriodStatus,
     getCPSProposalKeysByStatus,
     getCPSProposalDetailsByHash,
@@ -39,7 +39,18 @@ The library exposes an object that divides the methods according to the smart co
     getPreps,
     getBonderList,
     setBonderList,
-    getLastBlock,
+    getLastBlock
+  },
+  governance2: {
+    getScoreStatus,
+    getStepPrice,
+    getStepCosts,
+    getMaxStepLimit,
+    isInScoreBlackList,
+    getVersion,
+    getRevision,
+    getProposal,
+    getProposals,
     approveNetworkProposal,
     rejectNetworkProposal
   },
@@ -94,8 +105,34 @@ The library exposes an object that divides the methods according to the smart co
 **Params:**
 - prepAddress: wallet address of a prep.
 - arrayOfBonderAddress: an array of up to 10 addresses to be set as bonders for the given prep (prepAddress).
-
 ### getLastBlock()
+**Params:**
+- No params.
+### getScoreStatus(address)
+**Params:**
+- address: ICON SCORE address.
+### getStepPrice()
+**Params:**
+- No params.
+### getStepCosts()
+**Params:**
+- No params.
+### getMaxStepLimit(contextType)
+**Params:**
+- contextType: 'invoke' for sendTransaction, 'query' for call.
+### isInScoreBlackList(address)
+**Params:**
+- address: SCORE address to query.
+### getVersion()
+**Params:**
+- No params.
+### getRevision()
+**Params:**
+- No params.
+### getProposal(proposalId)
+**Params:**
+- proposalId: ID of network proposal.
+### getProposals()
 **Params:**
 - No params.
 ### approveNetworkProposal(proposalId, prepAddress)
@@ -106,3 +143,9 @@ The library exposes an object that divides the methods according to the smart co
 **Params:**
 - proposalId: ID of the proposal.
 - prepAddress: wallet address of a prep.
+
+## References
+- ICON Documentation: https://docs.icon.community/
+- CPS Documentation on Github: https://github.com/icon-community/CPS/wiki
+- Documentation for governance2 SCORE: https://github.com/icon-project/governance2
+- Documentation for governance SCORE: https://github.com/icon-project/governance
