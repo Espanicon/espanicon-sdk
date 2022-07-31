@@ -120,7 +120,7 @@ async function espaniconNodeSdk() {
   await createTest(
     getProposal,
     true,
-    "0x910aa0259910b97a90382fc1b236c13937da4d033bffab5cba5795aeab04eee6"
+    "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467"
   );
   // test on getProposals
   await createTest(getProposals);
