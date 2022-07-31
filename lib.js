@@ -219,7 +219,159 @@ async function getAllCPSProposals(queryMethod) {
   return proposals;
 }
 
-// Network score methods
+// Governance2 score methods
+async function getScoreStatus(queryMethod, address) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getScoreStatus",
+    { address: address },
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function getStepPrice(queryMethod) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getStepPrice",
+    null,
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function getStepCosts(queryMethod) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getStepCosts",
+    null,
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function getMaxStepLimit(queryMethod, contextType) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getMaxStepLimit",
+    { contextType: contextType },
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function isInScoreBlackList(queryMethod, address) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "isInScoreBlackList",
+    { address: address },
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function getVersion(queryMethod) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getVersion",
+    null,
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function getRevision(queryMethod) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getRevision",
+    null,
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
+async function getProposal(queryMethod, proposalId) {
+  const JSONRPCObject = makeICXCallRequestObj(
+    "getProposal",
+    { id: proposalId },
+    null,
+    SCORES.mainnet.governance2
+  );
+
+  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  if (request == null) {
+    // Error was raised and handled inside queryMethod, the returned value
+    // is null. Here we continue returning null and let the code logic
+    // after this handle the null values in the most appropiate way depending
+    // on the code logic
+    return request;
+  } else {
+    return request.result;
+  }
+}
 async function getProposals(queryMethod) {
   const JSONRPCObject = makeICXCallRequestObj(
     "getProposals",
@@ -238,6 +390,25 @@ async function getProposals(queryMethod) {
   } else {
     return request.result;
   }
+}
+function voteNetworkProposal(proposalId, vote, prepAddress) {
+  return makeTxCallRPCObj(
+    prepAddress,
+    SCORES.mainnet.governance2,
+    "voteProposal",
+    {
+      id: proposalId,
+      vote: vote
+    }
+  );
+}
+
+function approveNetworkProposal(proposalId, prepAddress) {
+  return voteNetworkProposal(proposalId, "0x1", prepAddress);
+}
+
+function rejectNetworkProposal(proposalId, prepAddress) {
+  return voteNetworkProposal(proposalId, "0x0", prepAddress);
 }
 
 // Governance methods
@@ -432,26 +603,6 @@ function setBonderList(queryMethod, prepAddress, arrayOfBonderAddresses) {
   );
 }
 
-function voteNetworkProposal(proposalId, vote, prepAddress) {
-  return makeTxCallRPCObj(
-    prepAddress,
-    SCORES.mainnet.governance2,
-    "voteProposal",
-    {
-      id: proposalId,
-      vote: vote
-    }
-  );
-}
-
-function approveNetworkProposal(proposalId, prepAddress) {
-  return voteNetworkProposal(proposalId, "0x1", prepAddress);
-}
-
-function rejectNetworkProposal(proposalId, prepAddress) {
-  return voteNetworkProposal(proposalId, "0x0", prepAddress);
-}
-
 async function getLastBlock(queryMethod) {
   const JSONRPCObject = JSON.stringify(
     makeJSONRPCRequestObj("icx_getLastBlock")
@@ -487,7 +638,18 @@ const lib = {
     getPreps,
     getBonderList,
     setBonderList,
-    getLastBlock,
+    getLastBlock
+  },
+  governance2: {
+    getScoreStatus,
+    getStepPrice,
+    getStepCosts,
+    getMaxStepLimit,
+    isInScoreBlackList,
+    getVersion,
+    getRevision,
+    getProposal,
+    getProposals,
     approveNetworkProposal,
     rejectNetworkProposal
   },
