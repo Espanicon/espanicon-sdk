@@ -1,8 +1,7 @@
 {
-  "name": "espanicon-sdk",
+  "name": "@espanicon/espanicon-sdk",
   "version": "1.0.0",
   "description": "JS SDK for the ICON Network",
-  "private": false,
   "exports": {
     "node": {
       "require": "./dist/main.cjs.js"
@@ -21,6 +20,10 @@
   ],
   "author": "Fidelve",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "repository": "git@github.com:Espanicon/espanicon-sdk.git"
+  },
   "dependencies": {
     "dotenv": "^16.0.1",
     "icon-sdk-js": "^1.2.3",
