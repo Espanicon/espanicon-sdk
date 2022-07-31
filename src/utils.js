@@ -6,7 +6,7 @@
 
 async function createTest(method, params = false, ...rest) {
   const methodName = method.name;
-  const methodParamsNames = getParams(method);
+  const methodParamsNames = { str: "foo", arr: [] };
   let maxChar = 2000;
 
   let resultObj = {

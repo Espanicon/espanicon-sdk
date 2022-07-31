@@ -3,7 +3,7 @@
 
 // imports
 //
-const { governance, cps, lib } = require("./lib");
+const { governance, cps, lib, governance2 } = require("./lib");
 const customFetch = require("./utils/customFetch");
 const SCORES = require("./utils/scores");
 
@@ -70,8 +70,8 @@ async function getScoreStatus(address) {
 async function getStepPrice() {
   return await governance2.getStepPrice(customFetch);
 }
-async function getStepCost() {
-  return await governance2.getStepCost(customFetch);
+async function getStepCosts() {
+  return await governance2.getStepCosts(customFetch);
 }
 async function getMaxStepLimit(contextType) {
   return await governance2.getMaxStepLimit(customFetch, contextType);
@@ -115,15 +115,15 @@ const webLib = {
   governance2: {
     getScoreStatus,
     getStepPrice,
-    getStepCost,
+    getStepCosts,
     getMaxStepLimit,
     isInScoreBlackList,
     getVersion,
     getRevision,
     getProposal,
     getProposals,
-    approveNetworkProposal: governance.approveNetworkProposal,
-    rejectNetworkProposal: governance.rejectNetworkProposal
+    approveNetworkProposal: governance2.approveNetworkProposal,
+    rejectNetworkProposal: governance2.rejectNetworkProposal
   },
   lib: {
     hexToDecimal: lib.hexToDecimal,

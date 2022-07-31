@@ -17,25 +17,25 @@ const {
 } = nodeLib.governance;
 
 const {
-  getCPSPeriodStatus,
-  getCPSProposalKeysByStatus,
-  getCPSProposalDetailsByHash,
-  getCPSProposalVoteResultsByHash,
-  getAllCPSProposals
+  getCPSPeriodStatus, // tested
+  getCPSProposalKeysByStatus, // tested
+  getCPSProposalDetailsByHash, // tested
+  getCPSProposalVoteResultsByHash, // tested
+  getAllCPSProposals //tested TODO: is commented out because it takes too long
 } = nodeLib.cps;
 
 const {
-  getScoreStatus,
-  getStepPrice,
-  getStepCosts,
-  getMaxStepLimit,
-  isInScoreBlackList,
-  getVersion,
-  getRevision,
-  getProposal,
-  getProposals,
-  approveNetworkProposal,
-  rejectNetworkProposal
+  getScoreStatus, // tested
+  getStepPrice, // tested
+  getStepCosts, // tested
+  getMaxStepLimit, // tested
+  isInScoreBlackList, // tested
+  getVersion, // tested
+  getRevision, // tested
+  getProposal, // tested TODO: returns error on valid proposals
+  getProposals, // tested
+  approveNetworkProposal, // tested
+  rejectNetworkProposal //tested
 } = nodeLib.governance2;
 
 const { createTest } = require("./utils.js");
