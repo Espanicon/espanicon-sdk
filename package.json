@@ -9,8 +9,8 @@
     "default": "./dist/main.web.js"
   },
   "scripts": {
-    "test-node": "node tests/main.tests.js",
-    "test-node-build": "node tests/build/main.tests.js",
+    "test-node": "node test-node/main.tests.js",
+    "test-node-build": "node test-node/build/main.tests.js",
     "build": "webpack",
     "test-web": "webpack serve --open"
   },

@@ -15,9 +15,9 @@ module.exports = [
   {
     mode: "development",
     devtool: "inline-source-map",
-    entry: "./src/index.js",
+    entry: "./test-web/index.js",
     output: {
-      filename: "main.js",
+      filename: "web-test.js",
       path: path.resolve(__dirname, "dist")
     },
     module: {
@@ -55,8 +55,8 @@ module.exports = [
       // new Dotenv(),
       new HtmlWebpackPlugin({
         title: "Output",
-        myPageHeader: "Page Header",
-        template: "./src/index.html",
+        myPageHeader: "web tests",
+        template: "./test-web/index.html",
         filename: "./index.html"
       })
     ],
