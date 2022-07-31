@@ -8,7 +8,7 @@ const { alertMsg, warningMsg, successMsg } = require("../utils/colorLog");
 async function createTest(method, params = false, ...rest) {
   const methodName = method.name;
   const methodParamsNames = getParams(method);
-  let maxChar = 2000;
+  let maxChar = 200;
 
   let stringToPrint = `!----------------\nRunning test on function => ${successMsg(
     method.name
@@ -29,8 +29,8 @@ async function createTest(method, params = false, ...rest) {
         try {
           let tempValue = JSON.stringify(rest[i]);
 
-          if (tempValue.length > 200) {
-            paramValue = tempValue.slice(0, 200) + "...}";
+          if (tempValue.length > maxChar) {
+            paramValue = tempValue.slice(0, maxChar) + "...}";
           } else {
             paramValue = tempValue;
           }
