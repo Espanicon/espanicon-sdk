@@ -36,9 +36,7 @@ const apiHostnames = {
   espanicon: "api.espanicon.team",
   sejong: "sejong.net.solidwallet.io",
   berlin: "berlin.net.solidwallet.io",
-  lisbon: "lisbon.net.solidwallet.io",
-  localhost: "localhost",
-  node: "65.108.47.72"
+  lisbon: "lisbon.net.solidwallet.io"
 };
 
 const apiRoutes = {
