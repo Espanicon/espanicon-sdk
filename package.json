@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "icon-sdk-js": "^1.2.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
