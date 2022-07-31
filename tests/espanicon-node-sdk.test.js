@@ -128,14 +128,14 @@ async function espaniconNodeSdk() {
   await createTest(
     approveNetworkProposal,
     true,
-    "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467"
+    "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467",
     TEST_WALLET
   );
   // test on rejectNetworkProposal
   await createTest(
     rejectNetworkProposal,
     true,
-    "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467"
+    "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467",
     TEST_WALLET
   );
 }

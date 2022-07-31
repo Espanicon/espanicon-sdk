@@ -48,13 +48,14 @@ function makeTxCallRPCObj(
   return txObj;
 }
 
-function makeICXCallRequestObj(
+function makeCustomCallRequestObj(
+  icxMethod = "icx_call",
   method,
   params = null,
   height = null,
   to = "cx0000000000000000000000000000000000000000"
 ) {
-  const JSONRPCRequestObj = makeJSONRPCRequestObj("icx_call");
+  const JSONRPCRequestObj = makeJSONRPCRequestObj(icxMethod);
   let data = {
     ...JSONRPCRequestObj,
     params: {
@@ -81,6 +82,15 @@ function makeICXCallRequestObj(
   }
 
   return JSON.stringify(data);
+}
+
+function makeICXCallRequestObj(
+  method,
+  params = null,
+  height = null,
+  to = "cx0000000000000000000000000000000000000000"
+) {
+  return makeCustomCallRequestObj("icx_call", method, params, height, to);
 }
 
 function hexToDecimal(hex) {
@@ -619,7 +629,19 @@ async function getLastBlock(queryMethod) {
     return request.result;
   }
 }
-
+//async function makeCustomReadOnlyCall(
+//  queryMethod,
+//  method,
+//  params = null,
+//  height = null,
+//  to = "cx0000000000000000000000000000000000000000",
+//  icxMethod = "icx_call"
+//) {
+//  //
+//}
+//async function makeCustomSignedCall() {
+//  //
+// }
 const lib = {
   cps: {
     getCPSPeriodStatus,
@@ -656,7 +678,10 @@ const lib = {
   lib: {
     hexToDecimal,
     decimalToHex,
-    fromHexInLoop
+    fromHexInLoop,
+    statusType
+    // makeCustomReadOnlyCall,
+    // makeCustomSignedCall
   }
 };
 

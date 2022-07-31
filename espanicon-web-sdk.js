@@ -128,7 +128,10 @@ const webLib = {
   lib: {
     hexToDecimal: lib.hexToDecimal,
     decimalToHex: lib.decimalToHex,
-    fromHexInLoop: lib.fromHexInLoop
+    fromHexInLoop: lib.fromHexInLoop,
+    statusType: lib.statusType,
+    customFetch: customFetch,
+    scores: SCORES
   }
 };
 

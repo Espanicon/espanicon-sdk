@@ -128,7 +128,10 @@ const nodeLib = {
   lib: {
     hexToDecimal: lib.hexToDecimal,
     decimalToHex: lib.decimalToHex,
-    fromHexInLoop: lib.fromHexInLoop
+    fromHexInLoop: lib.fromHexInLoop,
+    statusType: lib.statusType,
+    customRequest: customRequest,
+    scores: SCORES
   }
 };
 
