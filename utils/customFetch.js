@@ -8,7 +8,7 @@ const SCORES = require("./scores");
 async function customFetch(
   path,
   data = false,
-  hostname = SCORES.apiHostnames.espanicon,
+  hostname = SCORES.apiHostnames.default,
   https = true,
   port = false
 ) {

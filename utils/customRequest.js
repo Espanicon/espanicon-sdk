@@ -89,7 +89,7 @@ async function httpx(params, data = false, runSecured = true) {
 async function customRequest(
   path,
   data = false,
-  hostname = SCORES.apiHostnames.espanicon,
+  hostname = SCORES.apiHostnames.default,
   https = true,
   port = false
 ) {

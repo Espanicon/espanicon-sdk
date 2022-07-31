@@ -29,7 +29,7 @@ const nid = {
   sejong: 83
 };
 
-const apiHostnames = {
+let apiHostnames = {
   geometry: "api.icon.geometry.io", // deprecated
   ctz: "ctz.solidwallet.io",
   icon: "api.icon.community",
@@ -38,6 +38,8 @@ const apiHostnames = {
   berlin: "berlin.net.solidwallet.io",
   lisbon: "lisbon.net.solidwallet.io"
 };
+
+apiHostnames.default = apiHostnames.icon;
 
 const apiRoutes = {
   v3: "/api/v3",
