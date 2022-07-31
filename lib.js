@@ -629,19 +629,7 @@ async function getLastBlock(queryMethod) {
     return request.result;
   }
 }
-//async function makeCustomReadOnlyCall(
-//  queryMethod,
-//  method,
-//  params = null,
-//  height = null,
-//  to = "cx0000000000000000000000000000000000000000",
-//  icxMethod = "icx_call"
-//) {
-//  //
-//}
-//async function makeCustomSignedCall() {
-//  //
-// }
+
 const lib = {
   cps: {
     getCPSPeriodStatus,
@@ -680,8 +668,6 @@ const lib = {
     decimalToHex,
     fromHexInLoop,
     statusType
-    // makeCustomReadOnlyCall,
-    // makeCustomSignedCall
   }
 };
 
