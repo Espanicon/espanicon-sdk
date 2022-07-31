@@ -2,7 +2,7 @@
 //
 // Imports
 require("dotenv").config();
-const lib = require("../lib-no-sdk");
+const nodeLib = require("../espanicon-node-sdk");
 const {
   getScoreApi, // tested
   getIcxBalance, // tested
@@ -16,7 +16,7 @@ const {
   getLastBlock, // tested
   approveNetworkProposal, // tested
   rejectNetworkProposal // tested
-} = lib.governance;
+} = nodeLib.governance;
 
 const {
   getCPSPeriodStatus,
@@ -24,7 +24,7 @@ const {
   getCPSProposalDetailsByHash,
   getCPSProposalVoteResultsByHash,
   getAllCPSProposals
-} = lib.cps;
+} = nodeLib.cps;
 
 const { createTest } = require("./utils.js");
 const SCORES = require("../utils/scores");

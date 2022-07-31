@@ -1,20 +1,30 @@
 {
   "name": "espanicon-sdk",
   "version": "1.0.0",
-  "description": "",
-  "private": true,
+  "description": "JS SDK for the ICON Network",
+  "private": false,
+  "exports": {
+    "node": {
+      "require": "./dist/main.cjs.js"
+    },
+    "default": "./dist/main.web.js"
+  },
   "scripts": {
     "test-node": "node tests/main.tests.js",
     "build": "webpack",
     "test-web": "webpack serve --open"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "ICON",
+    "Blockchain",
+    "SDK"
+  ],
+  "author": "Fidelve",
+  "license": "MIT",
   "dependencies": {
-    "@fidelve/colorlog": "github:FidelVe/colorLog",
     "dotenv": "^16.0.1",
-    "icon-sdk-js": "^1.2.3"
+    "icon-sdk-js": "^1.2.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
@@ -28,7 +38,6 @@
     "react-dom": "^18.2.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.3",
-    "uuid": "^8.3.2",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"

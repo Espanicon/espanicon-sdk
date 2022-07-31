@@ -1,5 +1,5 @@
 import React from "react";
-import lib from "../lib-no-sdk-web";
+import lib from "../espanicon-web-sdk";
 import Test from "./components/Test";
 const SCORES = require("../utils/scores");
 import "./App.css";

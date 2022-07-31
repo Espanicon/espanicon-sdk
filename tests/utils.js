@@ -1,7 +1,7 @@
 // tests/utils.js
 //
 // Imports
-const { alertMsg, warningMsg, successMsg } = require("@fidelve/colorlog");
+const { alertMsg, warningMsg, successMsg } = require("../utils/colorLog");
 
 // Functions
 //
