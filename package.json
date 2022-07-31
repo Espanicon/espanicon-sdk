@@ -1,6 +1,6 @@
 {
   "name": "@espanicon/espanicon-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JS SDK for the ICON Network",
   "exports": {
     "node": {
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test-node": "node tests/main.tests.js",
+    "test-node-build": "node tests/build/main.tests.js",
     "build": "webpack",
     "test-web": "webpack serve --open"
   },

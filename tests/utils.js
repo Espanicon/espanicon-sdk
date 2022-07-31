@@ -5,9 +5,16 @@ const { alertMsg, warningMsg, successMsg } = require("../utils/colorLog");
 
 // Functions
 //
-async function createTest(method, params = false, ...rest) {
+async function createTestTemplate(
+  isBuildTest = false,
+  method,
+  params = false,
+  ...rest
+) {
   const methodName = method.name;
-  const methodParamsNames = getParams(method);
+  const methodParamsNames = isBuildTest
+    ? { str: "foo", arr: [] }
+    : getParams(method);
   let maxChar = 200;
 
   let stringToPrint = `!----------------\nRunning test on function => ${successMsg(
@@ -66,6 +73,12 @@ async function createTest(method, params = false, ...rest) {
   }
   return result;
 }
+async function createTest(method, params, ...rest) {
+  return await createTestTemplate(false, method, params, ...rest);
+}
+async function createTestOnBuild(method, params, ...rest) {
+  return await createTestTemplate(true, method, params, ...rest);
+}
 
 async function runTestModule(
   module,
@@ -110,4 +123,4 @@ function getParams(method) {
   return { str: `(${arr2.join(", ")})`, arr: arr2 };
 }
 
-module.exports = { createTest, runTestModule, getParams };
+module.exports = { createTest, createTestOnBuild, runTestModule, getParams };
