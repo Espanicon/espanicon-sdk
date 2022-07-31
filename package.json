@@ -26,11 +26,10 @@
     "repository": "git@github.com:Espanicon/espanicon-sdk.git",
     "url": "https://github.com/Espanicon/espanicon-sdk"
   },
-  "dependencies": {
-    "dotenv": "^16.0.1",
-    "uuid": "^8.3.2"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "dotenv": "^16.0.1",
+    "uuid": "^8.3.2",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@babel/preset-react": "^7.18.6",
