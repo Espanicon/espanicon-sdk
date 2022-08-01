@@ -73,6 +73,7 @@ The library exposes a class object with all the methods that you can use to make
   rejectNetworkProposal,
   scores
 }
+```
 
 You can then simply use the methods without the need to add which API node to use (*api.icon.community* is used by default) and which network (*mainnet* is used by default.
 
