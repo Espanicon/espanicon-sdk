@@ -12,44 +12,35 @@ async function createTestTemplate(
   ...rest
 ) {
   const methodName = method.name;
-  const methodParamsNames = isBuildTest
-    ? { str: "foo", arr: [] }
-    : getParams(method);
+  const methodParamsNames = getParams(method);
   let maxChar = 200;
 
-  let stringToPrint = `!----------------\nRunning test on function => ${successMsg(
+  let stringToPrint = `!----------------\nRunning test on function -> ${successMsg(
     method.name
-  )} ${methodParamsNames.str}`;
+  )} = ${methodParamsNames}`;
 
-  if (methodParamsNames.arr.length != rest.length) {
-    stringToPrint += `\n${warningMsg(
-      "WARNING:"
-    )} the amount of arguments being passed to the function "${methodName}" is not the same amount of arguments that were defined during function declaration unless method was declared using "...rest". Bypassing printing the function arguments`;
-  } else {
-    for (let i = 0; i < methodParamsNames.arr.length; i++) {
-      let paramName = methodParamsNames.arr[i];
-      let paramValue;
+  for (let i = 0; i < rest.length; i++) {
+    let paramValue;
 
-      if (typeof rest[i] === "function") {
-        paramValue = rest[i].name;
-      } else if (typeof rest[i] === "object") {
-        try {
-          let tempValue = JSON.stringify(rest[i]);
+    if (typeof rest[i] === "function") {
+      paramValue = rest[i].name;
+    } else if (typeof rest[i] === "object") {
+      try {
+        let tempValue = JSON.stringify(rest[i]);
 
-          if (tempValue.length > maxChar) {
-            paramValue = tempValue.slice(0, maxChar) + "...}";
-          } else {
-            paramValue = tempValue;
-          }
-        } catch (err) {
-          paramValue = `[Object. constructor: ${rest[i].constructor.name}]`;
+        if (tempValue.length > maxChar) {
+          paramValue = tempValue.slice(0, maxChar) + "...}";
+        } else {
+          paramValue = tempValue;
         }
-      } else {
-        paramValue = rest[i];
+      } catch (err) {
+        paramValue = `[Object. constructor: ${rest[i].constructor.name}]`;
       }
-
-      stringToPrint += `\n>> ${paramName}: ${paramValue}`;
+    } else {
+      paramValue = rest[i];
     }
+
+    stringToPrint += `\n>> Param Value: ${paramValue}`;
   }
 
   console.log(stringToPrint);
@@ -108,8 +99,9 @@ async function runTestModule(
   }
 }
 
-function getParams(method) {
+function getParamsOLD(method) {
   const regex = /\(([\s\S]*?)\)\s/;
+  // const regex = /^.*=>/;
 
   const str1 = method.toString().match(regex)[0];
   const arr1 = str1
@@ -121,6 +113,12 @@ function getParams(method) {
     return each.trim();
   });
   return { str: `(${arr2.join(", ")})`, arr: arr2 };
+}
+function getParams(method) {
+  const regex = /^.*=>/;
+
+  const str1 = method.toString().match(regex)[0];
+  return str1;
 }
 
 module.exports = { createTest, createTestOnBuild, runTestModule, getParams };

@@ -1,9 +1,11 @@
 import React from "react";
-import webLib from "../espanicon-web-sdk";
+import EspaniconSDKWeb from "../espanicon-sdk-web";
 import Test from "./components/Test";
-const SCORES = require("../utils/scores");
 import "./App.css";
 import ENV_VAR from "../web-test.config.json";
+
+const webLib = new EspaniconSDKWeb();
+
 const {
   getScoreApi, // tested
   getIcxBalance, // tested
@@ -14,17 +16,12 @@ const {
   getPreps, // tested
   getBonderList, // tested
   setBonderList, // tested
-  getLastBlock // tested
-} = webLib.governance;
-
-const {
+  getLastBlock, // tested
   getCPSPeriodStatus, // tested
   getCPSProposalKeysByStatus, // tested
   getCPSProposalDetailsByHash, // tested
   getCPSProposalVoteResultsByHash, // tested
-  getAllCPSProposals //tested TODO: is commented out because it takes too long
-} = webLib.cps;
-const {
+  getAllCPSProposals, //tested TODO: is commented out because it takes too long
   getScoreStatus, // tested
   getStepPrice, // tested
   getStepCosts, // tested
@@ -35,8 +32,9 @@ const {
   getProposal, // tested TODO: returns error on valid proposals
   getProposals, // tested
   approveNetworkProposal, // tested
-  rejectNetworkProposal //tested
-} = webLib.governance2;
+  rejectNetworkProposal, //tested
+  scores: SCORES
+} = webLib;
 
 const TEST_WALLET = ENV_VAR.TEST_NODE_WALLET;
 const TEST_CONTRACT = SCORES.mainnet.governance;

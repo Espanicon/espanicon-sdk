@@ -33,7 +33,7 @@ export default function Test({ method, params = false, rest = [] }) {
   ) : (
     <div className={styles.main}>
       <p>
-        Running Test on Function =>{" "}
+        Running Test on Function ->{" "}
         {`${testResult.methodName} ${testResult.methodParamsNames}`}
       </p>
       <p>Function params: {JSON.stringify(testResult.arr)}</p>

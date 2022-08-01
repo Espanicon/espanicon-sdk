@@ -83,7 +83,7 @@ module.exports = [
   },
   {
     mode: "production",
-    entry: "./espanicon-node-sdk.js",
+    entry: "./espanicon-sdk-node.js",
     output: {
       filename: "main.cjs.js",
       path: path.resolve(__dirname, "dist"),
@@ -110,7 +110,7 @@ module.exports = [
   },
   {
     mode: "production",
-    entry: "./espanicon-web-sdk.js",
+    entry: "./espanicon-sdk-web.js",
     output: {
       filename: "main.web.js",
       path: path.resolve(__dirname, "dist"),

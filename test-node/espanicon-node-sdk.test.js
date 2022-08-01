@@ -2,7 +2,11 @@
 //
 // Imports
 require("dotenv").config();
-const nodeLib = require("../espanicon-node-sdk");
+const EspaniconSDKNode = require("../espanicon-sdk-node");
+const EspaniconSDK = require("../espanicon-sdk");
+const { createTest } = require("./utils.js");
+
+const nodeLib = new EspaniconSDKNode();
 const {
   getScoreApi, // tested
   getIcxBalance, // tested
@@ -13,18 +17,12 @@ const {
   getPreps, // tested
   getBonderList, // tested
   setBonderList, // tested
-  getLastBlock // tested
-} = nodeLib.governance;
-
-const {
+  getLastBlock, // tested
   getCPSPeriodStatus, // tested
   getCPSProposalKeysByStatus, // tested
   getCPSProposalDetailsByHash, // tested
   getCPSProposalVoteResultsByHash, // tested
-  getAllCPSProposals //tested TODO: is commented out because it takes too long
-} = nodeLib.cps;
-
-const {
+  getAllCPSProposals, //tested TODO: is commented out because it takes too long
   getScoreStatus, // tested
   getStepPrice, // tested
   getStepCosts, // tested
@@ -35,11 +33,9 @@ const {
   getProposal, // tested TODO: returns error on valid proposals
   getProposals, // tested
   approveNetworkProposal, // tested
-  rejectNetworkProposal //tested
-} = nodeLib.governance2;
-
-const { createTest } = require("./utils.js");
-const SCORES = require("../utils/scores");
+  rejectNetworkProposal, //tested
+  scores: SCORES
+} = nodeLib;
 
 const TEST_WALLET = process.env.TEST_NODE_WALLET;
 const TEST_CONTRACT = SCORES.mainnet.governance;
