@@ -11,7 +11,7 @@ npm install git@github.com:Espanicon/espanicon-sdk.git
 Depending on whether you using the Espanicon SDK on the server side (via nodejs) or on the client side (web) the way to import it will differ, is important to choose the correct method because internally the request are being handle in different ways, for nodejs the http and https modules are used and for the web the fetch API is used.
 
 ### If you are using the SDK in a nodejs based app
-```
+```js
 // Import the SDK
 const EspaniconSDKNode = require('@espanicon/espanicon-sdk');
 
@@ -27,7 +27,7 @@ const {
 
 ```
 ### If you are using the SDK directly on the web
-```
+```js
 // Import the SDK
 import EspaniconSDKWeb from '@espanicon/espanicon-sdk';
 
