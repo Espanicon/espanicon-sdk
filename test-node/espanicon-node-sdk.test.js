@@ -3,7 +3,6 @@
 // Imports
 require("dotenv").config();
 const EspaniconSDKNode = require("../espanicon-sdk-node");
-const EspaniconSDK = require("../espanicon-sdk");
 const { createTest } = require("./utils.js");
 
 const nodeLib = new EspaniconSDKNode();

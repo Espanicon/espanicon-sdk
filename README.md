@@ -8,58 +8,71 @@ The benefit of using the Espanicon SDK is a more simpler syntax to make very com
 ```
 npm install git@github.com:Espanicon/espanicon-sdk.git
 ```
-Depending on whether you using the Espanicon SDK on the server side (via nodejs) or on the client side (web) the way to import it will vary, is important to choose the correct method because internally the request are being handle in different ways, for nodejs the http and https modules are used and for the web the fetch API is used.
+Depending on whether you using the Espanicon SDK on the server side (via nodejs) or on the client side (web) the way to import it will differ, is important to choose the correct method because internally the request are being handle in different ways, for nodejs the http and https modules are used and for the web the fetch API is used.
 
 ### If you are using the SDK in a nodejs based app
 ```
-const espaniconLib = require('@espanicon/espanicon-sdk');
+// Import the SDK
+const EspaniconSDKNode = require('@espanicon/espanicon-sdk');
+
+// instantiate the library
+const lib = new EspaniconSDKNode();
+
+// Now you can have access to all the methods inside the library
+const {
+  getScoreApi,
+  getIcxBalance,
+  // ...
+} = lib;
+
 ```
 ### If you are using the SDK directly on the web
 ```
-import espaniconLib from '@espanicon/espanicon-sdk';
+// Import the SDK
+import EspaniconSDKWeb from '@espanicon/espanicon-sdk';
+
+// instantiate the library
+const lib = new EspaniconSDKWeb();
+
+// Now you can have access to all the methods inside the library
+const {
+  getScoreApi,
+  getIcxBalance
+  // ...
+} = lib;
 ```
 ## Methods
-The library exposes an object that divides the methods according to the smart contract they related to:
+The library exposes a class object with all the methods that you can use to make ICON Network related queries.
 ```
 {
-cps: {
-    getCPSPeriodStatus,
-    getCPSProposalKeysByStatus,
-    getCPSProposalDetailsByHash,
-    getCPSProposalVoteResultsByHash,
-    getAllCPSProposals
-  },
-  governance: {
-    getScoreApi,
-    getIcxBalance,
-    getTxResult,
-    getTxByHash,
-    getPrep,
-    parsePrepData,
-    getPreps,
-    getBonderList,
-    setBonderList,
-    getLastBlock
-  },
-  governance2: {
-    getScoreStatus,
-    getStepPrice,
-    getStepCosts,
-    getMaxStepLimit,
-    isInScoreBlackList,
-    getVersion,
-    getRevision,
-    getProposal,
-    getProposals,
-    approveNetworkProposal,
-    rejectNetworkProposal
-  },
-  lib: {
-    hexToDecimal,
-    decimalToHex,
-    fromHexInLoop
-  }
-};
+  getScoreApi,
+  getIcxBalance,
+  getTxResult,
+  getTxByHash,
+  getPrep,
+  parsePrepData,
+  getPreps,
+  getBonderList,
+  setBonderList,
+  getLastBlock,
+  getCPSPeriodStatus,
+  getCPSProposalKeysByStatus,
+  getCPSProposalDetailsByHash,
+  getCPSProposalVoteResultsByHash,
+  getAllCPSProposals,
+  getScoreStatus,
+  getStepPrice,
+  getStepCosts,
+  getMaxStepLimit,
+  isInScoreBlackList,
+  getVersion,
+  getRevision,
+  getProposal,
+  getProposals,
+  approveNetworkProposal,
+  rejectNetworkProposal,
+  scores
+}
 ```
 
 ### getCPSPeriodStatus()
