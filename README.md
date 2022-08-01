@@ -73,6 +73,36 @@ The library exposes a class object with all the methods that you can use to make
   rejectNetworkProposal,
   scores
 }
+
+You can then simply use the methods without the need to add which API node to use (*api.icon.community* is used by default) and which network (*mainnet* is used by default.
+
+```js
+import EspaniconSDKWeb from "@espanicon/espanicon-sdk";
+
+const lib = new EspaniconSDKWeb();
+
+const { getCPSPeriodStatus } = lib;
+
+// most methods are async
+async function runAsync() {
+const query = await getCPSPeriodStatus();
+console.log(query)
+}
+
+runAsync()
+
+```
+This will have a response in the following format:
+
+```js
+{
+  current_block: "0x32f22c8",
+  next_block: "0x334086f",
+  period_name: "Voting Period",
+  period_span: "0x13bd20",
+  previous_period_name: "Application Period",
+  remaining_time: "0x9cb4e"
+}
 ```
 
 ### getCPSPeriodStatus()
