@@ -43,7 +43,7 @@ const {
 ```
 ## Methods
 The library exposes a class object with all the methods that you can use to make ICON Network related queries.
-```
+```js
 {
   getScoreApi,
   getIcxBalance,
