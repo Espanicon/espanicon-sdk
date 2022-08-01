@@ -3,12 +3,14 @@
 // to interact with the ICON Blockchain
 //
 // Imports
-const SCORES = require("./scores");
+const { apiNode } = require("../lib.config");
 
+// functions
+//
 async function customFetch(
   path,
   data = false,
-  hostname = SCORES.apiHostnames.default,
+  hostname = apiNode,
   https = true,
   port = false
 ) {

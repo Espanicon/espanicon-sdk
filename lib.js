@@ -1,7 +1,7 @@
 // lib.js
 //
 // Imports
-const SCORES = require("./utils/scores");
+const { scores } = require("./lib.config");
 
 // global var declarations
 const statusType = [
@@ -26,7 +26,7 @@ function makeTxCallRPCObj(
   to,
   method,
   paramsObj,
-  nid = SCORES.nid.mainnet,
+  nid = scores.nid.mainnet,
   stepLimit = 2000000
 ) {
   let txObj = makeJSONRPCRequestObj("icx_sendTransaction");
@@ -115,10 +115,10 @@ async function getCPSPeriodStatus(queryMethod) {
     "get_period_status",
     null,
     null,
-    SCORES.mainnet.cps
+    scores.mainnet.cps
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -135,11 +135,11 @@ async function getCPSProposalKeysByStatus(queryMethod, status) {
     "get_proposals_keys_by_status",
     { _status: status },
     null,
-    SCORES.mainnet.cps
+    scores.mainnet.cps
   );
 
   if (statusType.includes(status)) {
-    const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+    const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
       // is null. Here we continue returning null and let the code logic
@@ -159,10 +159,10 @@ async function getCPSProposalDetailsByHash(queryMethod, hash) {
     "get_proposal_details_by_hash",
     { _ipfs_key: hash },
     null,
-    SCORES.mainnet.cps
+    scores.mainnet.cps
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -179,10 +179,10 @@ async function getCPSProposalVoteResultsByHash(queryMethod, hash) {
     "get_vote_result",
     { _ipfs_key: hash },
     null,
-    SCORES.mainnet.cps
+    scores.mainnet.cps
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -235,10 +235,10 @@ async function getScoreStatus(queryMethod, address) {
     "getScoreStatus",
     { address: address },
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -254,10 +254,10 @@ async function getStepPrice(queryMethod) {
     "getStepPrice",
     null,
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -273,10 +273,10 @@ async function getStepCosts(queryMethod) {
     "getStepCosts",
     null,
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -292,10 +292,10 @@ async function getMaxStepLimit(queryMethod, contextType) {
     "getMaxStepLimit",
     { contextType: contextType },
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -311,10 +311,10 @@ async function isInScoreBlackList(queryMethod, address) {
     "isInScoreBlackList",
     { address: address },
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -330,10 +330,10 @@ async function getVersion(queryMethod) {
     "getVersion",
     null,
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -349,10 +349,10 @@ async function getRevision(queryMethod) {
     "getRevision",
     null,
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -368,10 +368,10 @@ async function getProposal(queryMethod, proposalId) {
     "getProposal",
     { id: proposalId },
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -387,10 +387,10 @@ async function getProposals(queryMethod) {
     "getProposals",
     null,
     null,
-    SCORES.mainnet.governance2
+    scores.mainnet.governance2
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -404,7 +404,7 @@ async function getProposals(queryMethod) {
 function voteNetworkProposal(proposalId, vote, prepAddress) {
   return makeTxCallRPCObj(
     prepAddress,
-    SCORES.mainnet.governance2,
+    scores.mainnet.governance2,
     "voteProposal",
     {
       id: proposalId,
@@ -422,7 +422,7 @@ function rejectNetworkProposal(proposalId, prepAddress) {
 }
 
 // Governance methods
-async function getScoreApi(queryMethod, address = SCORES.mainnet.governance) {
+async function getScoreApi(queryMethod, address = scores.mainnet.governance) {
   //
   const JSONRPCObject = JSON.stringify({
     ...makeJSONRPCRequestObj("icx_getScoreApi"),
@@ -431,7 +431,7 @@ async function getScoreApi(queryMethod, address = SCORES.mainnet.governance) {
     }
   });
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -451,7 +451,7 @@ async function getIcxBalance(queryMethod, address, decimals = 2) {
     }
   });
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -471,7 +471,7 @@ async function getTxResult(queryMethod, txHash) {
     }
   });
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -491,7 +491,7 @@ async function getTxByHash(queryMethod, txHash) {
     }
   });
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -508,9 +508,9 @@ async function getPreps(queryMethod, height = null) {
     "getPReps",
     { startRanking: "0x1" },
     height,
-    SCORES.mainnet.governance
+    scores.mainnet.governance
   );
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -528,10 +528,10 @@ async function getPrep(queryMethod, prepAddress) {
     "getPRep",
     { address: prepAddress },
     null,
-    SCORES.mainnet.governance
+    scores.mainnet.governance
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -587,10 +587,10 @@ async function getBonderList(queryMethod, prepAddress) {
     "getBonderList",
     { address: prepAddress },
     null,
-    SCORES.mainnet.governance
+    scores.mainnet.governance
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
@@ -605,7 +605,7 @@ async function getBonderList(queryMethod, prepAddress) {
 function setBonderList(queryMethod, prepAddress, arrayOfBonderAddresses) {
   return makeTxCallRPCObj(
     prepAddress,
-    SCORES.mainnet.governance,
+    scores.mainnet.governance,
     "setBonderList",
     {
       bonderList: [...arrayOfBonderAddresses]
@@ -618,7 +618,7 @@ async function getLastBlock(queryMethod) {
     makeJSONRPCRequestObj("icx_getLastBlock")
   );
 
-  const request = await queryMethod(SCORES.apiRoutes.v3, JSONRPCObject);
+  const request = await queryMethod(scores.apiRoutes.v3, JSONRPCObject);
   if (request == null) {
     // Error was raised and handled inside queryMethod, the returned value
     // is null. Here we continue returning null and let the code logic
