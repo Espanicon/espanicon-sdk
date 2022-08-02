@@ -12,7 +12,9 @@ async function createTestTemplate(
   ...rest
 ) {
   const methodName = method.name;
-  const methodParamsNames = getParams(method);
+  const methodParamsNames = isBuildTest
+    ? getParams(method, true)
+    : getParams(method);
   let maxChar = 200;
 
   let stringToPrint = `!----------------\nRunning test on function -> ${successMsg(
@@ -114,8 +116,8 @@ function getParamsOLD(method) {
   });
   return { str: `(${arr2.join(", ")})`, arr: arr2 };
 }
-function getParams(method) {
-  const regex = /^.*=>/;
+function getParams(method, onBuild = false) {
+  const regex = onBuild ? /^.*?{/ : /^.*?=>/;
 
   const str1 = method.toString().match(regex)[0];
   return str1;

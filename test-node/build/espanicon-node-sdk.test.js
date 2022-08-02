@@ -2,7 +2,8 @@
 //
 // Imports
 require("dotenv").config();
-const nodeLib = require("../../dist/main.cjs");
+const EspaniconSDKNode = require("../../dist/main.cjs");
+const nodeLib = new EspaniconSDKNode();
 const {
   getScoreApi, // tested
   getIcxBalance, // tested
@@ -13,18 +14,12 @@ const {
   getPreps, // tested
   getBonderList, // tested
   setBonderList, // tested
-  getLastBlock // tested
-} = nodeLib.governance;
-
-const {
+  getLastBlock, // tested
   getCPSPeriodStatus, // tested
   getCPSProposalKeysByStatus, // tested
   getCPSProposalDetailsByHash, // tested
   getCPSProposalVoteResultsByHash, // tested
-  getAllCPSProposals //tested TODO: is commented out because it takes too long
-} = nodeLib.cps;
-
-const {
+  getAllCPSProposals, //tested TODO: is commented out because it takes too long
   getScoreStatus, // tested
   getStepPrice, // tested
   getStepCosts, // tested
@@ -35,11 +30,11 @@ const {
   getProposal, // tested TODO: returns error on valid proposals
   getProposals, // tested
   approveNetworkProposal, // tested
-  rejectNetworkProposal //tested
-} = nodeLib.governance2;
+  rejectNetworkProposal, //tested
+  scores: SCORES
+} = nodeLib;
 
 const { createTestOnBuild } = require("../utils.js");
-const SCORES = require("../../utils/scores");
 
 const TEST_WALLET = process.env.TEST_NODE_WALLET;
 const TEST_CONTRACT = SCORES.mainnet.governance;
@@ -96,7 +91,9 @@ async function espaniconNodeSdk() {
   // test on getBonderList
   await createTestOnBuild(getBonderList, true, TEST_WALLET);
   // test on setBonderList
-  let txObj = await createTestOnBuild(setBonderList, true, TEST_WALLET, [TEST_WALLET]);
+  let txObj = await createTestOnBuild(setBonderList, true, TEST_WALLET, [
+    TEST_WALLET
+  ]);
   // test on getLastBlock
   await createTestOnBuild(getLastBlock);
 
