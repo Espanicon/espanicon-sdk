@@ -4,12 +4,12 @@
 // imports
 //
 const customRequest = require("./utils/customRequest");
-const { scores } = require("./lib.config");
+const { scores, apiNode } = require("./lib.config");
 const EspaniconSDK = require("./espanicon-sdk");
 
 class EspaniconSDKNode extends EspaniconSDK {
-  constructor(apiNode = scores.apiNode) {
-    super(apiNode, customRequest);
+  constructor(defaultApiNode = apiNode) {
+    super(defaultApiNode, customRequest);
   }
 }
 

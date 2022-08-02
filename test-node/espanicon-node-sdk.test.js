@@ -38,7 +38,6 @@ const {
 
 const TEST_WALLET = process.env.TEST_NODE_WALLET;
 const TEST_CONTRACT = SCORES.mainnet.governance;
-console.log(nodeLib);
 
 async function espaniconNodeSdk() {
   // TESTS ON CPS METHODS

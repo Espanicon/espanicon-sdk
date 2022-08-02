@@ -5,7 +5,7 @@
 // Imports
 const https = require("https");
 const http = require("http");
-const { apiNode } = require("../lib.config");
+// const { apiNode } = require("../lib.config");
 
 /**
  * async https/http request wrapped in a promise
@@ -89,7 +89,7 @@ async function httpx(params, data = false, runSecured = true) {
 async function customRequest(
   path,
   data = false,
-  hostname = apiNode,
+  hostname,
   https = true,
   port = false
 ) {

@@ -133,7 +133,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -157,7 +158,8 @@ class EspaniconSDK {
     if (this.statusType.includes(status)) {
       const request = await this.queryMethod(
         this.scores.apiRoutes.v3,
-        JSONRPCObject
+        JSONRPCObject,
+      this.apiNode
       );
       if (request == null) {
         // Error was raised and handled inside queryMethod, the returned value
@@ -183,7 +185,9 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
+
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -206,7 +210,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -258,7 +263,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -280,7 +286,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -302,7 +309,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -324,7 +332,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -346,7 +355,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -368,7 +378,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -390,7 +401,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -412,7 +424,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -434,7 +447,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -478,7 +492,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -501,7 +516,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -524,7 +540,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -547,7 +564,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -569,7 +587,8 @@ class EspaniconSDK {
     );
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -593,7 +612,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -655,7 +675,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
@@ -686,7 +707,8 @@ class EspaniconSDK {
 
     const request = await this.queryMethod(
       this.scores.apiRoutes.v3,
-      JSONRPCObject
+      JSONRPCObject,
+      this.apiNode
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value

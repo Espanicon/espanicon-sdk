@@ -2,15 +2,13 @@
 // This module is an https request wrapped in a promise design to be used
 // to interact with the ICON Blockchain
 //
-// Imports
-const { apiNode } = require("../lib.config");
 
 // functions
 //
 async function customFetch(
   path,
   data = false,
-  hostname = apiNode,
+  hostname,
   https = true,
   port = false
 ) {
