@@ -15,7 +15,7 @@ async function createTestTemplate(
   const methodParamsNames = isBuildTest
     ? getParams(method, true)
     : getParams(method);
-  let maxChar = 200;
+  let maxChar = 2000;
 
   let stringToPrint = `!----------------\nRunning test on function -> ${successMsg(
     method.name

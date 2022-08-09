@@ -9,7 +9,8 @@ const statusType = [
   "_completed",
   "_disqualified",
   "_paused",
-  "_pending"
+  "_pending",
+  "_rejected"
 ];
 
 class EspaniconSDK {
@@ -159,7 +160,7 @@ class EspaniconSDK {
       const request = await this.queryMethod(
         this.scores.apiRoutes.v3,
         JSONRPCObject,
-      this.apiNode
+        this.apiNode
       );
       if (request == null) {
         // Error was raised and handled inside queryMethod, the returned value
@@ -187,7 +188,6 @@ class EspaniconSDK {
       this.scores.apiRoutes.v3,
       JSONRPCObject,
       this.apiNode
-
     );
     if (request == null) {
       // Error was raised and handled inside queryMethod, the returned value
