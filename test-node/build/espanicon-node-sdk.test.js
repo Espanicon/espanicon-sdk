@@ -27,8 +27,9 @@ const {
   isInScoreBlackList, // tested
   getVersion, // tested
   getRevision, // tested
-  getProposal, // tested TODO: returns error on valid proposals
-  getProposals, // tested
+  getNetworkProposal, // tested
+  getNetworkProposals, // tested
+  getAllNetworkProposals, // tested
   approveNetworkProposal, // tested
   rejectNetworkProposal, //tested
   scores: SCORES
@@ -113,14 +114,16 @@ async function espaniconNodeSdk() {
   await createTestOnBuild(getVersion);
   // test on getRevision
   await createTestOnBuild(getRevision);
-  // test on getProposal
+  // test on getNetworkProposal
   await createTestOnBuild(
-    getProposal,
+    getNetworkProposal,
     true,
     "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467"
   );
-  // test on getProposals
-  await createTestOnBuild(getProposals);
+  // test on getNetworkProposals
+  await createTestOnBuild(getNetworkProposals);
+  // test on getAllNetworkProposals
+  await createTestOnBuild(getAllNetworkProposals);
   // test on approveNetworkProposal
   await createTestOnBuild(
     approveNetworkProposal,

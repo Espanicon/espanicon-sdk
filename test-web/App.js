@@ -29,8 +29,9 @@ const {
   isInScoreBlackList, // tested
   getVersion, // tested
   getRevision, // tested
-  getProposal, // tested TODO: returns error on valid proposals
-  getProposals, // tested
+  getNetworkProposal, // tested
+  getNetworkProposals, // tested
+  getAllNetworkProposals, // tested
   approveNetworkProposal, // tested
   rejectNetworkProposal, //tested
   scores: SCORES
@@ -139,16 +140,18 @@ export default function App() {
           <Test method={getVersion} />
           {/* test on getRevision */}
           <Test method={getRevision} />
-          {/* test on getProposal */}
+          {/* test on getNetworkProposal */}
           <Test
-            method={getProposal}
+            method={getNetworkProposal}
             params={true}
             rest={[
               "0xce1cd28129fd6787b099baac5e18b0786a2bcab1a5c5b6eb4484073509176467"
             ]}
           />
-          {/* test on getProposals */}
-          <Test method={getProposals} />
+          {/* test on getNetworkProposals */}
+          <Test method={getNetworkProposals} />
+          {/* test on getNetworkProposals */}
+          <Test method={getAllNetworkProposals} />
           {/* test on approveNetworkProposal */}
           <Test
             method={approveNetworkProposal}

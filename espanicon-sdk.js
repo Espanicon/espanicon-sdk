@@ -414,7 +414,7 @@ class EspaniconSDK {
       return request.result;
     }
   };
-  getProposal = async proposalId => {
+  getNetworkProposal = async proposalId => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getProposal",
       { id: proposalId },
@@ -437,10 +437,10 @@ class EspaniconSDK {
       return request.result;
     }
   };
-  getProposals = async () => {
+  getNetworkProposals = async (params = null) => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getProposals",
-      null,
+      params,
       null,
       this.scores.mainnet.governance2
     );
@@ -460,6 +460,39 @@ class EspaniconSDK {
       return request.result;
     }
   };
+  getAllNetworkProposals = async () => {
+    const maxIterations = 100;
+    let loop = 0;
+    let start = 0;
+    let size = 7;
+    let params = {
+      start: "0x" + start.toString(16),
+      size: "0x" + size.toString(16)
+    };
+    let proposals = [];
+
+    while (loop < maxIterations) {
+      // console.log({ start: parseInt(params.start), size: parseInt(params.size)     });
+      // console.log({ start: params.start, size: params.size });
+
+      const query = await this.getNetworkProposals(params);
+
+      //
+      loop++;
+      start = start + size;
+      params.start = "0x" + start.toString(16);
+
+      if (query.proposals.length < 1) {
+        break;
+      }
+      query.proposals.map(eachProposal => {
+        proposals.push(eachProposal);
+      });
+    }
+
+    return proposals;
+  };
+
   voteNetworkProposal = (proposalId, vote, prepAddress) => {
     return this.makeTxCallRPCObj(
       prepAddress,
