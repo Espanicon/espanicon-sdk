@@ -92,6 +92,20 @@ class EspaniconSDK {
     return JSON.stringify(data);
   };
 
+  makeICXSendTxRequestObj = (
+    method,
+    params = null,
+    height = null,
+    to = "cx0000000000000000000000000000000000000000"
+  ) => {
+    return this.makeCustomCallRequestObj(
+      "icx_sendTransaction",
+      method,
+      params,
+      height,
+      to
+    );
+  };
   makeICXCallRequestObj = (
     method,
     params = null,
