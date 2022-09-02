@@ -61,7 +61,8 @@ class EspaniconSDK {
     method,
     params = null,
     height = null,
-    to = "cx0000000000000000000000000000000000000000"
+    to = "cx0000000000000000000000000000000000000000",
+    returnString = true
   ) => {
     const JSONRPCRequestObj = this.makeJSONRPCRequestObj(icxMethod);
     let data = {
@@ -89,7 +90,11 @@ class EspaniconSDK {
       }
     }
 
-    return JSON.stringify(data);
+    if (returnString) {
+      return JSON.stringify(data);
+    } else {
+      return data;
+    }
   };
 
   makeICXSendTxRequestObj = (
