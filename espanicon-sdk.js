@@ -101,28 +101,32 @@ class EspaniconSDK {
     method,
     params = null,
     height = null,
-    to = "cx0000000000000000000000000000000000000000"
+    to = "cx0000000000000000000000000000000000000000",
+    returnString = true
   ) => {
     return this.makeCustomCallRequestObj(
       "icx_sendTransaction",
       method,
       params,
       height,
-      to
+      to,
+      returnString
     );
   };
   makeICXCallRequestObj = (
     method,
     params = null,
     height = null,
-    to = "cx0000000000000000000000000000000000000000"
+    to = "cx0000000000000000000000000000000000000000",
+    returnString = true
   ) => {
     return this.makeCustomCallRequestObj(
       "icx_call",
       method,
       params,
       height,
-      to
+      to,
+      returnString
     );
   };
 
