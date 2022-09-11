@@ -1,6 +1,6 @@
 {
   "name": "@espanicon/espanicon-sdk",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "JS SDK for the ICON Network",
   "exports": {
     "node": {
