@@ -8,8 +8,8 @@ const { scores, apiNode } = require("./lib.config");
 const EspaniconSDK = require("./espanicon-sdk");
 
 class EspaniconSDKWeb extends EspaniconSDK {
-  constructor(defaultApiNode = apiNode) {
-    super(defaultApiNode, customFetch);
+  constructor(defaultApiNode = apiNode, defaultNid = scores.nid.mainnet) {
+    super(defaultApiNode, defaultNid, customFetch);
   }
 }
 

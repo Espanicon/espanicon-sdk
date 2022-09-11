@@ -14,8 +14,9 @@ const statusType = [
 ];
 
 class EspaniconSDK {
-  constructor(apiNode, queryMethod) {
+  constructor(apiNode, nid, queryMethod) {
     this.apiNode = apiNode;
+    this.nid = nid;
     this.queryMethod = queryMethod;
     this.scores = scores;
     this.statusType = statusType;
@@ -34,7 +35,7 @@ class EspaniconSDK {
     to,
     method,
     paramsObj,
-    nid = this.scores.nid.mainnet,
+    nid = this.nid,
     stepLimit = 2000000
   ) => {
     let txObj = this.makeJSONRPCRequestObj("icx_sendTransaction");

@@ -28,7 +28,8 @@ const nid = {
   mainnet: 1,
   lisbon: 2,
   berlin: 7,
-  sejong: 83
+  sejong: 83,
+  local: 3
 };
 
 let apiHostnames = {
