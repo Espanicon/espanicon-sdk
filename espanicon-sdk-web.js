@@ -10,7 +10,6 @@ const EspaniconSDK = require("./espanicon-sdk");
 class EspaniconSDKWeb extends EspaniconSDK {
   constructor(defaultApiNode = apiNode, defaultNid = scores.nid.mainnet) {
     super(defaultApiNode, defaultNid, customFetch);
-    this.customRequest = customFetch;
   }
 }
 
