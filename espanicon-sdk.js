@@ -78,11 +78,13 @@ class EspaniconSDK {
     };
 
     if (params == null) {
+      null;
     } else {
       data.params.data.params = params;
     }
 
     if (height === null) {
+      null;
     } else {
       if (typeof height !== "number") {
         throw new Error("Height type must be number");
