@@ -53,19 +53,10 @@ async function customFetch(
     // console.log("query result");
     // console.log(queryResult);
 
-    // Responses in the ICON network are JSON object, if an error occurs
-    // the object will have an 'error' param. we check for that and if it
-    // exists throw an error
-    if (queryResult.error == null) {
-      return queryResult;
-    } else {
-      throw new Error(
-        "Request made successfully but returned Error from the node"
-      );
-    }
+    return queryResult;
   } catch (err) {
     // if an error occurs returns null and log the error
-    console.log("Error running customRequest");
+    console.log("Error running customFetch");
     console.log(err.message);
     console.log(queryResult);
     return null;

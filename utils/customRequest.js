@@ -112,14 +112,7 @@ async function customRequest(
       request = await httpx(params, data, false);
     }
 
-    if (request.error == null) {
-      // if there is no error
-      return request;
-    } else {
-      throw new Error(
-        "Request made successfully but returned Error from the node"
-      );
-    }
+    return request;
   } catch (err) {
     console.log("Error running customRequest");
     console.log(err.message);

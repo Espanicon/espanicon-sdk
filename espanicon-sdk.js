@@ -14,6 +14,9 @@ const statusType = [
 ];
 
 class EspaniconSDK {
+  /*
+   *
+   */
   constructor(apiNode, nid, queryMethod) {
     this.apiNode = apiNode;
     this.nid = nid;
@@ -22,6 +25,9 @@ class EspaniconSDK {
     this.statusType = statusType;
   }
   // General Functions
+  /*
+   *
+   */
   makeJSONRPCRequestObj = method => {
     return {
       jsonrpc: "2.0",
@@ -30,6 +36,9 @@ class EspaniconSDK {
     };
   };
 
+  /*
+   *
+   */
   makeTxCallRPCObj = (
     from,
     to,
@@ -57,6 +66,9 @@ class EspaniconSDK {
     return txObj;
   };
 
+  /*
+   *
+   */
   makeCustomCallRequestObj = (
     icxMethod = "icx_call",
     method,
@@ -100,6 +112,9 @@ class EspaniconSDK {
     }
   };
 
+  /*
+   *
+   */
   makeICXSendTxRequestObj = (
     method,
     params = null,
@@ -116,6 +131,10 @@ class EspaniconSDK {
       returnString
     );
   };
+
+  /*
+   *
+   */
   makeICXCallRequestObj = (
     method,
     params = null,
@@ -133,14 +152,23 @@ class EspaniconSDK {
     );
   };
 
+  /*
+   *
+   */
   hexToDecimal = hex => {
     return parseInt(hex, 16);
   };
 
+  /*
+   *
+   */
   decimalToHex = number => {
     return "0x" + number.toString(16);
   };
 
+  /*
+   *
+   */
   fromHexInLoop = loopInHex => {
     let loopInBase2 = this.hexToDecimal(loopInHex);
     return loopInBase2 / 10 ** 18;
@@ -149,6 +177,9 @@ class EspaniconSDK {
   // SCORE methods
   //
   // CPS methods
+  /*
+   *
+   */
   getCPSPeriodStatus = async () => {
     //
     const JSONRPCObject = this.makeICXCallRequestObj(
@@ -170,10 +201,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getCPSProposalKeysByStatus = async status => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "get_proposals_keys_by_status",
@@ -191,17 +229,24 @@ class EspaniconSDK {
       if (request == null) {
         // Error was raised and handled inside queryMethod, the returned value
         // is null. Here we continue returning null and let the code logic
-        // after this handle the null values in the most appropiate way depending
-        // on the code logic
+        // after this handle the null values in the most appropiate way
+        // depending on the code logic
         return request;
       } else {
-        return request.result;
+        if (request.error == null) {
+          return request;
+        } else {
+          return request.result;
+        }
       }
     } else {
       return null;
     }
   };
 
+  /*
+   *
+   */
   getCPSProposalDetailsByHash = async hash => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "get_proposal_details_by_hash",
@@ -222,10 +267,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getCPSProposalVoteResultsByHash = async hash => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "get_vote_result",
@@ -246,10 +298,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getAllCPSProposals = async () => {
     let proposals = {
       _active: [],
@@ -279,6 +338,9 @@ class EspaniconSDK {
   };
 
   // Governance2 score methods
+  /*
+   *
+   */
   getScoreStatus = async address => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getScoreStatus",
@@ -299,9 +361,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getStepPrice = async () => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getStepPrice",
@@ -322,9 +392,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getStepCosts = async () => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getStepCosts",
@@ -345,9 +423,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getMaxStepLimit = async contextType => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getMaxStepLimit",
@@ -368,9 +454,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   isInScoreBlackList = async address => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "isInScoreBlackList",
@@ -391,9 +485,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getVersion = async () => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getVersion",
@@ -414,9 +516,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getRevision = async () => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getRevision",
@@ -437,9 +547,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getNetworkProposal = async proposalId => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getProposal",
@@ -460,9 +578,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getNetworkProposals = async (params = null) => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getProposals",
@@ -483,9 +609,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
+
+  /*
+   *
+   */
   getAllNetworkProposals = async () => {
     const maxIterations = 100;
     let loop = 0;
@@ -519,6 +653,9 @@ class EspaniconSDK {
     return proposals;
   };
 
+  /*
+   *
+   */
   voteNetworkProposal = (proposalId, vote, prepAddress) => {
     return this.makeTxCallRPCObj(
       prepAddress,
@@ -531,15 +668,24 @@ class EspaniconSDK {
     );
   };
 
+  /*
+   *
+   */
   approveNetworkProposal = (proposalId, prepAddress) => {
     return this.voteNetworkProposal(proposalId, "0x1", prepAddress);
   };
 
+  /*
+   *
+   */
   rejectNetworkProposal = (proposalId, prepAddress) => {
     return this.voteNetworkProposal(proposalId, "0x0", prepAddress);
   };
 
   // Governance methods
+  /*
+   *
+   */
   getScoreApi = async (address = this.scores.mainnet.governance) => {
     //
     const JSONRPCObject = JSON.stringify({
@@ -561,10 +707,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getIcxBalance = async (address, decimals = 2) => {
     const JSONRPCObject = JSON.stringify({
       ...this.makeJSONRPCRequestObj("icx_getBalance"),
@@ -585,10 +738,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return Number(this.fromHexInLoop(request.result).toFixed(decimals));
+      if (request.error == null) {
+        return request;
+      } else {
+        return Number(this.fromHexInLoop(request.result).toFixed(decimals));
+      }
     }
   };
 
+  /*
+   *
+   */
   getTxResult = async txHash => {
     const JSONRPCObject = JSON.stringify({
       ...this.makeJSONRPCRequestObj("icx_getTransactionResult"),
@@ -609,10 +769,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getTxByHash = async txHash => {
     const JSONRPCObject = JSON.stringify({
       ...this.makeJSONRPCRequestObj("icx_getTransactionByHash"),
@@ -633,10 +800,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getPreps = async (height = null) => {
     const JSONRPCObject = this.makeICXCallRequestObj(
       "getPReps",
@@ -656,10 +830,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   getPrep = async prepAddress => {
     //
     const JSONRPCObject = this.makeICXCallRequestObj(
@@ -681,10 +862,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   parsePrepData = prep => {
     return {
       ...prep,
@@ -723,6 +911,9 @@ class EspaniconSDK {
     };
   };
 
+  /*
+   *
+   */
   getBonderList = async prepAddress => {
     //
     const JSONRPCObject = this.makeICXCallRequestObj(
@@ -744,10 +935,17 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 
+  /*
+   *
+   */
   setBonderList = (prepAddress, arrayOfBonderAddresses) => {
     return this.makeTxCallRPCObj(
       prepAddress,
@@ -759,6 +957,9 @@ class EspaniconSDK {
     );
   };
 
+  /*
+   *
+   */
   getLastBlock = async () => {
     const JSONRPCObject = JSON.stringify(
       this.makeJSONRPCRequestObj("icx_getLastBlock")
@@ -776,7 +977,11 @@ class EspaniconSDK {
       // on the code logic
       return request;
     } else {
-      return request.result;
+      if (request.error == null) {
+        return request;
+      } else {
+        return request.result;
+      }
     }
   };
 }
