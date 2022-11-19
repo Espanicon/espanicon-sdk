@@ -46,7 +46,11 @@ async function httpx(params, data = false, runSecured = true) {
       res.on("end", () => {
         let data;
         try {
-          data = JSON.parse(rawData);
+          if (typeof rawData === "string") {
+            data = JSON.parse(rawData);
+          } else {
+            data = rawData;
+          }
           resolve(data);
         } catch (err) {
           data = { error: err.message, message: rawData };
