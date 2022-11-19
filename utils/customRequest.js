@@ -34,8 +34,10 @@ async function httpx(params, data = false, runSecured = true) {
 
       // Process chunked data
       let rawData = "";
-      res.on("data", chunk => {
-        rawData += chunk;
+      res.on("data", ch => {
+        console.log("chunk");
+        console.log(ch);
+        rawData += ch;
       });
 
       // for (let item in res.headers) {
