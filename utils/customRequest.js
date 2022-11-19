@@ -116,16 +116,16 @@ async function customRequest(
       port: port ? port : https ? 443 : 80
     };
 
+    console.log("request");
+    console.log(params);
+    console.log(typeof data);
+    console.log(data);
     if (https) {
       request = await httpx(params, data);
     } else {
       request = await httpx(params, data, false);
     }
 
-    console.log("request");
-    console.log(params);
-    console.log(typeof data);
-    console.log(data);
     return request;
   } catch (err) {
     console.log("Error running customRequest");
