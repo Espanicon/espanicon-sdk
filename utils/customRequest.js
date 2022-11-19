@@ -58,6 +58,8 @@ async function httpx(params, data = false, runSecured = true) {
           resolve(data);
         } catch (err) {
           data = { error: err.message, message: rawData };
+          console.log("error data");
+          console.log(data);
           reject(data);
         }
       });
