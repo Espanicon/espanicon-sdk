@@ -45,6 +45,8 @@ async function httpx(params, data = false, runSecured = true) {
       // when request completed, pass the data to the 'resolve' callback
       res.on("end", () => {
         let data;
+        console.log("raw data");
+        console.log(rawData);
         try {
           if (typeof rawData === "string") {
             data = JSON.parse(rawData);
