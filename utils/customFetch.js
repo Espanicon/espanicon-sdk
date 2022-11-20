@@ -1,7 +1,5 @@
-// httpsRequest.js
-// This module is an https request wrapped in a promise design to be used
-// to interact with the ICON Blockchain
-//
+// customFetch.js
+// custom fetch request design to be used on the browser.
 
 // functions
 //
@@ -16,7 +14,7 @@ async function customFetch(
     hostname: hostname,
     path: path,
     headers: {
-      "Content-Type": "text/plain"
+      "Content-Type": "application/json"
     },
     port: port ? ":" + port + "/" : "",
     protocol: https ? "https://" : "http://"
