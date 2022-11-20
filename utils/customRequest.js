@@ -25,19 +25,18 @@ async function httpx(params, data = false, runSecured = true) {
   const promisifiedQuery = new Promise((resolve, reject) => {
     const query = method.request(params, res => {
       // Print status code on console
-      console.log("Status Code: " + res.statusCode);
-      console.log("headers: ", res.headers);
       console.log("Params:");
       console.log(params);
       console.log("data:");
       console.log(data);
+      console.log("Status Code: " + res.statusCode);
+      console.log(`Http: ${runSecured}`);
+      console.log("headers: ", res.headers);
 
       // Process chunked data
       let rawData = "";
-      res.on("data", ch => {
-        console.log("chunk");
-        console.log(ch);
-        rawData += ch;
+      res.on("data", chunk => {
+        rawData += chunk;
       });
 
       // for (let item in res.headers) {
@@ -47,14 +46,16 @@ async function httpx(params, data = false, runSecured = true) {
       // when request completed, pass the data to the 'resolve' callback
       res.on("end", () => {
         let data;
-        console.log("raw data");
-        console.log(rawData);
         try {
           if (typeof rawData === "string") {
             data = JSON.parse(rawData);
           } else {
             data = rawData;
           }
+          console.log("raw data");
+          console.log(rawData);
+          console.log("data");
+          console.log(data);
           resolve(data);
         } catch (err) {
           data = { error: err.message, message: rawData };
@@ -120,6 +121,7 @@ async function customRequest(
     console.log(params);
     console.log(typeof data);
     console.log(data);
+    console.log(`https: ${https}`);
     if (https) {
       request = await httpx(params, data);
     } else {
