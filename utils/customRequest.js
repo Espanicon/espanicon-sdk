@@ -25,12 +25,12 @@ async function httpx(params, data = false, runSecured = true) {
   const promisifiedQuery = new Promise((resolve, reject) => {
     const query = method.request(params, res => {
       // Print status code on console
-      // console.log("Status Code: " + res.statusCode);
-      // console.log("headers: ", res.headers);
-      // console.log("Params:");
-      // console.log(params);
-      // console.log("data:");
-      // console.log(data);
+      console.log("Status Code: " + res.statusCode);
+      console.log("headers: ", res.headers);
+      console.log("Params:");
+      console.log(params);
+      console.log("data:");
+      console.log(data);
 
       // Process chunked data
       let rawData = "";
@@ -110,7 +110,7 @@ async function customRequest(
       path: path,
       method: data ? "POST" : "GET",
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type": "application/json",
         charset: "UTF-8"
       },
       port: port ? port : https ? 443 : 80
