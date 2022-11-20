@@ -25,13 +25,13 @@ async function httpx(params, data = false, runSecured = true) {
   const promisifiedQuery = new Promise((resolve, reject) => {
     const query = method.request(params, res => {
       // Print status code on console
-      console.log("Params:");
-      console.log(params);
-      console.log("data:");
-      console.log(data);
-      console.log("Status Code: " + res.statusCode);
-      console.log(`Http: ${runSecured}`);
-      console.log("headers: ", res.headers);
+      // console.log("Params:");
+      // console.log(params);
+      // console.log("data:");
+      // console.log(data);
+      // console.log("Status Code: " + res.statusCode);
+      // console.log(`Http: ${runSecured}`);
+      // console.log("headers: ", res.headers);
 
       // Process chunked data
       let rawData = "";
@@ -52,10 +52,10 @@ async function httpx(params, data = false, runSecured = true) {
           } else {
             data = rawData;
           }
-          console.log("raw data");
-          console.log(rawData);
-          console.log("data");
-          console.log(data);
+          // console.log("raw data");
+          // console.log(rawData);
+          // console.log("data");
+          // console.log(data);
           resolve(data);
         } catch (err) {
           data = { error: err.message, message: rawData };
@@ -120,11 +120,11 @@ async function customRequest(
       params.headers["Content-Length"] = data.length;
     }
 
-    console.log("request");
-    console.log(params);
-    console.log(typeof data);
-    console.log(data);
-    console.log(`https: ${https}`);
+    // console.log("request");
+    // console.log(params);
+    // console.log(typeof data);
+    // console.log(data);
+    // console.log(`https: ${https}`);
     if (https) {
       request = await httpx(params, data);
     } else {
