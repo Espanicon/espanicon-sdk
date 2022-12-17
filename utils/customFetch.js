@@ -16,7 +16,7 @@ async function customFetch(
     headers: {
       "Content-Type": "application/json"
     },
-    port: port ? ":" + port + "/" : "",
+    port: port ? ":" + port : "",
     protocol: https ? "https://" : "http://"
   };
   let reqParams;
