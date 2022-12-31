@@ -202,9 +202,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -234,9 +234,9 @@ class EspaniconSDK {
         return request;
       } else {
         if (request.error == null) {
-          return request;
-        } else {
           return request.result;
+        } else {
+          return request;
         }
       }
     } else {
@@ -268,9 +268,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -299,9 +299,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -362,9 +362,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -393,9 +393,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -424,9 +424,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -455,9 +455,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -486,9 +486,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -517,9 +517,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -548,9 +548,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -579,9 +579,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -610,9 +610,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -708,9 +708,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -718,7 +718,7 @@ class EspaniconSDK {
   /*
    *
    */
-  getIcxBalance = async (address, decimals = 2) => {
+  getIcxBalance = async (address, decimals = 8) => {
     const JSONRPCObject = JSON.stringify({
       ...this.makeJSONRPCRequestObj("icx_getBalance"),
       params: {
@@ -739,9 +739,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return Number(this.fromHexInLoop(request.result).toFixed(decimals));
+      } else {
+        return request;
       }
     }
   };
@@ -770,9 +770,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -801,9 +801,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -831,9 +831,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -863,9 +863,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -936,9 +936,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
@@ -978,9 +978,9 @@ class EspaniconSDK {
       return request;
     } else {
       if (request.error == null) {
-        return request;
-      } else {
         return request.result;
+      } else {
+        return request;
       }
     }
   };
