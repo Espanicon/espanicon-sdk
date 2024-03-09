@@ -984,6 +984,39 @@ class EspaniconSDK {
       }
     }
   };
+
+  /*
+   * ICON CHAINSCORE API
+   */
+  /*
+   *
+   */
+  getNetworkInfo = async (height = null) => {
+    const JSONRPCObject = this.makeICXCallRequestObj(
+      "getNetworkInfo",
+      null,
+      height,
+      this.scores.mainnet.governance
+    );
+    const request = await this.queryMethod(
+      this.scores.apiRoutes.v3,
+      JSONRPCObject,
+      this.apiNode
+    );
+    if (request == null) {
+      // Error was raised and handled inside queryMethod, the returned value
+      // is null. Here we continue returning null and let the code logic
+      // after this handle the null values in the most appropiate way depending
+      // on the code logic
+      return request;
+    } else {
+      if (request.error == null) {
+        return request.result;
+      } else {
+        return request;
+      }
+    }
+  };
 }
 
 module.exports = EspaniconSDK;
